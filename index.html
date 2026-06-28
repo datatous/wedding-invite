@@ -798,8 +798,11 @@
       const attend=form.querySelector('input[name=attend]:checked').value;
       const side=form.querySelector('input[name=side]:checked').value;
       const name=document.getElementById('rfName').value.trim();
-      const phone=document.getElementById('rfPhone').value.trim();
+      let phone=document.getElementById('rfPhone').value.trim();
       if(!name||!phone){toast('성함과 연락처를 입력해 주세요');return;}
+      const d=phone.replace(/\D/g,'');/* 하이픈 자동 → 시트에 텍스트로 저장(앞자리 0 보존) */
+      if(d.length===11)phone=d.replace(/(\d{3})(\d{4})(\d{4})/,'$1-$2-$3');
+      else if(d.length===10)phone=d.replace(/(\d{3})(\d{3})(\d{4})/,'$1-$2-$3');
       if(!document.getElementById('rfAgree').checked){toast('개인정보 수집·이용에 동의해 주세요 (필수)');return;}
       const comp=(attend==='참석')?parseInt(document.getElementById('rfComp').value||'0',10):0;
       const total=(attend==='참석')?comp+1:0;
