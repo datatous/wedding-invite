@@ -9,7 +9,7 @@
 <!-- ===== OG / 카카오톡·메신저 미리보기 ===== -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="오현근 ♥ 이우진 결혼합니다" />
-<meta property="og:description" content="2026년 10월 24일 토요일 오후 1시 · 대전 마리드엘 3층 그랜드홀" />
+<meta property="og:description" content="2026년 10월 24일 토요일 오후 1시 · 대전 마리드엘 (서구 만년로 69)" />
 <meta property="og:url" content="https://datatous.github.io/wedding-invite/" />
 <!-- 야외스냅 기반 OG (1200x630). 사진 교체 시 _ogcard2.html 재렌더 -->
 <meta property="og:image" content="https://datatous.github.io/wedding-invite/og.jpg" />
@@ -41,8 +41,10 @@
     font-size:12px;color:var(--gold);text-align:center;margin-bottom:20px;padding-left:.46em}
   h2.kr{font-family:'Gowun Batang',serif;text-align:center;font-size:21px;color:var(--ink);
     font-weight:700;margin-bottom:34px;letter-spacing:.03em}
-  .rv{opacity:0;transform:translateY(30px);transition:opacity 1.7s cubic-bezier(.22,.61,.25,1),transform 1.7s cubic-bezier(.22,.61,.25,1)}
-  .rv.in{opacity:1;transform:none}
+  .rv{opacity:0;transform:translateY(42px) scale(.985);filter:blur(5px);
+    transition:opacity 1.6s cubic-bezier(.2,.65,.25,1),transform 1.6s cubic-bezier(.2,.65,.25,1),filter 1.4s ease}
+  .rv.in{opacity:1;transform:none;filter:none}
+  @media (prefers-reduced-motion:reduce){.rv{transition:none;filter:none;transform:none;opacity:1}}
 
   /* COVER intro word-effects (AOS-style fade-up + 자간 relax) — slow */
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
@@ -70,7 +72,7 @@
 
   /* INVITATION */
   .invite{text-align:center}
-  .invite .poem{font-family:'Gowun Dodum',serif;font-size:16px;color:var(--ink-2);line-height:2.35}
+  .invite .poem{font-family:'Gowun Dodum',serif;font-size:13.5px;color:var(--ink-2);line-height:2.5;letter-spacing:-.03em;word-break:keep-all}
   .invite .src{font-family:'Gowun Dodum',serif;font-size:13px;color:var(--mut);margin-top:24px}
   .hr{width:44px;height:1px;background:var(--line);margin:34px auto}
   .parents{font-family:'Gowun Dodum',serif;font-size:15px;line-height:2.4}
@@ -100,6 +102,7 @@
   .p1{background:url(images/g1.jpg) center/cover no-repeat #e7ddd3}.p2{background:url(images/g2.jpg) center/cover no-repeat #e7ddd3}
   .p3{background:url(images/g3.jpg) center/cover no-repeat #e7ddd3}.p4{background:url(images/g4.jpg) center/cover no-repeat #e7ddd3}
   .p5{background:url(images/g5.jpg) center/cover no-repeat #e7ddd3}.p6{background:url(images/g6.jpg) center/cover no-repeat #e7ddd3}
+  .p7{background:url(images/closing.jpg) center/cover no-repeat #e7ddd3}
   .gdots{color:var(--mut);font-size:12px;letter-spacing:.15em;margin-top:6px}
 
   /* CALENDAR */
@@ -178,7 +181,7 @@
 
   /* CLOSING */
   .closing{padding:0;position:relative;height:90vh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
-  .closing .img{position:absolute;inset:0;background:url(images/g1.jpg) center/cover no-repeat #4a4036}
+  .closing .img{position:absolute;inset:0;background:url(images/closing.jpg) center/cover no-repeat #2a2622}
   .closing .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5))}
   .closing .inner{position:relative;z-index:2;width:100%;text-align:center;padding:40px 32px 44px;color:#fff}
   .closing .kakao{display:inline-flex;align-items:center;gap:8px;background:#fae100;color:#3a2e00;border:0;border-radius:40px;padding:14px 26px;font-size:14px;font-family:'Gowun Dodum',serif;font-weight:700;cursor:pointer}
@@ -210,13 +213,15 @@
   /* INFO BOTTOM SHEET */
   .sheet-dim{position:fixed;inset:0;background:rgba(40,35,30,.5);z-index:90;opacity:0;visibility:hidden;transition:.3s}
   .sheet-dim.open{opacity:1;visibility:visible}
-  .sheet{position:fixed;left:50%;transform:translateX(-50%) translateY(100%);bottom:0;width:100%;max-width:430px;height:90vh;
+  .sheet{position:fixed;left:50%;transform:translateX(-50%) translateY(100%);bottom:0;width:100%;max-width:430px;
+    height:85dvh;max-height:85vh;
     background:var(--bg);z-index:95;border-radius:20px 20px 0 0;transition:transform .38s cubic-bezier(.3,.8,.3,1);
     display:flex;flex-direction:column;overflow:hidden}
   .sheet.open{transform:translateX(-50%) translateY(0)}
-  .sheet-head{padding:14px 18px 0;flex:0 0 auto;background:var(--bg);position:relative}
-  .sheet-grab{width:42px;height:4px;border-radius:4px;background:#d8d0c4;margin:0 auto 12px}
-  .sheet-close{position:absolute;right:14px;top:14px;font-size:20px;color:var(--mut);width:30px;height:30px;background:none;border:0;cursor:pointer}
+  .sheet-head{padding:10px 18px 0;flex:0 0 auto;background:var(--bg);position:relative}
+  .sheet-grab{width:44px;height:5px;border-radius:5px;background:#d8d0c4;margin:2px auto 14px;cursor:pointer}
+  .sheet-close{position:absolute;right:12px;top:8px;font-size:20px;color:var(--ink-2);width:40px;height:40px;border-radius:50%;
+    background:var(--bg-2);border:0;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center}
   .tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
   .tabs button{white-space:nowrap;font-size:13px;color:var(--ink-2);padding:7px 4px;position:relative;font-weight:500;
@@ -251,11 +256,35 @@
   .s-arch{margin:22px auto 0;max-width:250px;background:var(--paper);border:1px solid var(--line);border-radius:120px 120px 16px 16px;padding:36px 22px 24px}
   .s-arch .nm{font-family:'Gowun Dodum',serif;font-size:16px}.s-arch .meta{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.9}
   .btn-fill{background:var(--rose);color:#fff;border:0;border-radius:24px;padding:12px 26px;font-size:13.5px;font-weight:700;margin-top:18px;cursor:pointer;font-family:'Gowun Dodum',serif}
+  /* RSVP form */
+  .rsvp-form{text-align:left;margin-top:22px;display:flex;flex-direction:column;gap:16px}
+  .rf-group{display:flex;flex-direction:column;gap:8px}
+  .rf-label{font-family:'Gowun Dodum',serif;font-size:13px;color:var(--ink);font-weight:700}
+  .rf-seg{display:flex;gap:8px}
+  .rf-seg label{flex:1;cursor:pointer}
+  .rf-seg input{position:absolute;opacity:0;pointer-events:none}
+  .rf-seg span{display:block;text-align:center;padding:12px 0;border:1px solid var(--line);border-radius:10px;background:var(--paper);font-size:13.5px;color:var(--ink-2)}
+  .rf-seg input:checked+span{background:var(--rose);color:#fff;border-color:var(--rose)}
+  .rf-input{padding:13px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit;background:var(--paper);width:100%;color:var(--ink)}
+  .rf-agree{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--ink-2);line-height:1.65;cursor:pointer;margin-top:2px}
+  .rf-agree input{margin-top:2px;flex:0 0 auto;width:17px;height:17px;accent-color:var(--rose-d)}
+  .rf-agree b{color:var(--rose-d)}.rf-agree i{font-style:normal;color:var(--mut);font-size:11px}
+  .rf-done{text-align:center;padding:34px 12px}
+  .rf-done .big{font-family:'Gowun Batang',serif;font-size:19px;color:var(--rose-d);margin-bottom:10px;line-height:1.5}
+  .rf-done .sub{font-size:13px;color:var(--ink-2);line-height:1.95}
 
   /* GALLERY 더보기 */
   .grid-more{margin-top:6px}
   .btn-more{display:block;margin:20px auto 0;padding:11px 26px;border:1px solid var(--line);border-radius:40px;
     background:var(--paper);color:var(--ink-2);font-size:13px;font-family:'Gowun Dodum',serif;cursor:pointer;letter-spacing:.04em}
+  .gswipe .gslide,.grid .ph{cursor:zoom-in}
+
+  /* LIGHTBOX (사진 크게 보기) */
+  .lb{position:fixed;inset:0;background:rgba(22,18,16,.93);z-index:200;display:none;align-items:center;justify-content:center;padding:18px}
+  .lb.open{display:flex;animation:lbfade .25s ease}
+  @keyframes lbfade{from{opacity:0}to{opacity:1}}
+  .lb img{max-width:100%;max-height:88vh;border-radius:4px;box-shadow:0 12px 50px rgba(0,0,0,.55)}
+  .lb .lb-x{position:absolute;top:14px;right:16px;width:42px;height:42px;font-size:26px;color:#fff;background:rgba(255,255,255,.12);border:0;border-radius:50%;cursor:pointer;z-index:2}
 
   /* ENTRY RSVP POPUP */
   .pop-dim{position:fixed;inset:0;background:rgba(40,35,30,.55);z-index:110;display:none;align-items:center;justify-content:center;padding:24px}
@@ -288,7 +317,7 @@
     <div class="cover-photo"></div>
     <div class="when">26년 10월 24일 · 오후 1시</div>
     <div class="where">대전 마리드엘</div>
-    <div class="addr">대전광역시 서구 둔산로 100, 마리드엘 3F</div><!-- SAMPLE: 상세 주소 -->
+    <div class="addr">대전광역시 서구 만년로 69, 마리드엘 6층</div>
   </section>
 
   <!-- INVITATION -->
@@ -329,8 +358,9 @@
       <div class="ph p4"></div><div class="ph p1"></div><div class="ph p3"></div>
     </div>
     <div class="grid grid-more" id="galMore" hidden>
-      <div class="ph p1"></div><div class="ph p3"></div><div class="ph p5"></div>
-      <div class="ph p6"></div><div class="ph p2"></div><div class="ph p4"></div>
+      <div class="ph p7"></div><div class="ph p3"></div><div class="ph p5"></div>
+      <div class="ph p2"></div><div class="ph p6"></div><div class="ph p1"></div>
+      <div class="ph p4"></div><div class="ph p7"></div><div class="ph p2"></div>
     </div>
     <button class="btn-more" id="galMoreBtn" onclick="toggleGallery()">사진 더 보기 +</button>
   </section>
@@ -362,17 +392,17 @@
     <div class="label">Location</div>
     <h2 class="kr">오시는 길</h2>
     <div class="place">대전 마리드엘</div>
-    <div class="place-sub">3층 그랜드홀 · 본식 오후 1시</div><!-- SAMPLE: 홀 이름/층 -->
-    <div class="tel">Tel. 042-123-4567</div><!-- SAMPLE: 예식장 대표번호 -->
+    <div class="place-sub">6층 · 본식 오후 1시</div>
+    <div class="tel">Tel. 042-485-1515</div>
     <!-- 네이버 동적지도 (NCP Maps). SAMPLE 좌표 — 실주소 확정 시 VENUE 좌표 교체 -->
     <div class="map"><div id="naverMap"></div></div>
     <div class="nav-btns">
       <a href="https://map.naver.com/p/search/대전 마리드엘" target="_blank" rel="noopener">네이버지도</a><a href="https://map.kakao.com/?q=대전 마리드엘" target="_blank" rel="noopener">카카오맵</a><a href="tmap://search?name=대전 마리드엘" target="_blank" rel="noopener">티맵</a>
     </div>
-    <div class="transit"><!-- SAMPLE: 주차·대중교통 안내 -->
-      <h4>자가용</h4><p><span class="dot">●</span> 내비에 "대전 마리드엘" 검색 · 건물 지하주차장 2시간 무료</p>
-      <h4>지하철</h4><p><span class="dot">●</span> 1호선 시청역 3번 출구 도보 8분</p>
-      <h4>버스</h4><p><span class="dot">●</span> 시청역 정류장 하차 (간선 105·201·311 / 지선 612)</p>
+    <div class="transit"><!-- 대중교통 상세는 발행 전 확인 권장 -->
+      <h4>자가용</h4><p><span class="dot">●</span> 내비에 "대전 마리드엘" 검색 · 넓은 주차장 완비</p>
+      <h4>지하철</h4><p><span class="dot">●</span> 1호선 정부청사역에서 차량 약 5분</p>
+      <h4>버스</h4><p><span class="dot">●</span> 만년동(대전예술의전당) 일대 정류장 하차</p>
     </div>
   </section>
 
@@ -514,7 +544,7 @@
     <div class="blk" id="t-schedule">
       <div class="sc">the wedding day</div>
       <div class="kt">2026년 10월 24일 토요일 오후 1시</div>
-      <p class="msg" style="font-size:13.5px">대전 마리드엘 3층 그랜드홀<br/>예식 30분 전 도착을 추천드려요.</p>
+      <p class="msg" style="font-size:13.5px">대전 마리드엘<br/>예식 30분 전 도착을 추천드려요.</p>
       <div class="s-cal" id="sheetCal"></div>
       <div class="s-arch" style="border-radius:16px">
         <div class="nm" style="font-size:30px;font-family:'Gowun Batang',serif;font-weight:700;color:var(--rose-d)" id="sheetDday">D-—</div>
@@ -525,9 +555,9 @@
     <div class="blk" id="t-loc">
       <div class="sc">location</div>
       <div class="s-venue"><!-- SAMPLE: 예식장 상세 -->
-        <div class="name">대전 마리드엘 3층 그랜드홀</div>
-        <div class="addr">대전광역시 서구 둔산로 100
-          <button class="copy" data-acc="대전광역시 서구 둔산로 100" style="margin-left:6px">복사</button></div>
+        <div class="name">대전 마리드엘</div>
+        <div class="addr">대전광역시 서구 만년로 69
+          <button class="copy" data-acc="대전광역시 서구 만년로 69" style="margin-left:6px">복사</button></div>
       </div>
       <div class="s-map"><div id="naverMapSheet"></div></div>
       <div class="s-mapapps">
@@ -535,7 +565,7 @@
         <a href="https://map.kakao.com/?q=대전 마리드엘" target="_blank" rel="noopener">카카오맵</a>
         <a href="tmap://search?name=대전 마리드엘" target="_blank" rel="noopener">티맵</a>
       </div>
-      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 지하주차장 2시간 무료<br/>● 지하철 1호선 시청역 3번 출구 도보 8분<br/>● 버스 시청역 정류장 하차</p>
+      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 넓은 주차장 완비<br/>● 지하철 1호선 정부청사역 차량 약 5분<br/>● 버스 만년동(예술의전당) 일대 하차</p>
     </div>
     <!-- 마음 전하실 곳 -->
     <div class="blk" id="t-heart">
@@ -555,11 +585,36 @@
       <div class="sc">rsvp</div>
       <div class="kt">참석 여부 전달</div>
       <p class="msg" style="font-size:13.5px">참석 여부를 미리 전달해 주시면<br/>준비에 큰 도움이 됩니다.</p>
-      <div class="s-arch">
-        <div class="nm">신랑 <b>오현근</b> ♡ 신부 <b>이우진</b></div>
-        <div class="meta">대전 마리드엘 3층 그랜드홀<br/>2026.10.24 (土) PM 1:00</div>
-      </div>
-      <button class="btn-fill" onclick="toast('참석 여부 폼 — 발행 시 구글폼 연동')">참석 여부 전달하기</button>
+      <form class="rsvp-form" id="rsvpForm" autocomplete="off">
+        <div class="rf-group">
+          <label class="rf-label">참석 여부</label>
+          <div class="rf-seg">
+            <label><input type="radio" name="attend" value="참석" checked><span>참석</span></label>
+            <label><input type="radio" name="attend" value="불참석"><span>불참석</span></label>
+          </div>
+        </div>
+        <div class="rf-group">
+          <label class="rf-label">하객 구분</label>
+          <div class="rf-seg">
+            <label><input type="radio" name="side" value="신랑측" checked><span>신랑측</span></label>
+            <label><input type="radio" name="side" value="신부측"><span>신부측</span></label>
+          </div>
+        </div>
+        <div class="rf-group"><label class="rf-label">성함</label><input class="rf-input" id="rfName" placeholder="성함을 입력해 주세요" maxlength="20"></div>
+        <div class="rf-group"><label class="rf-label">연락처</label><input class="rf-input" id="rfPhone" type="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="20"></div>
+        <div class="rf-group" id="rfCompWrap">
+          <label class="rf-label">본인 외 동행인</label>
+          <select class="rf-input" id="rfComp">
+            <option value="0">없음 (본인만 참석)</option>
+            <option value="1">1명</option><option value="2">2명</option><option value="3">3명</option>
+            <option value="4">4명</option><option value="5">5명</option><option value="6">6명</option>
+            <option value="7">7명</option><option value="8">8명</option><option value="9">9명</option>
+          </select>
+        </div>
+        <label class="rf-agree"><input type="checkbox" id="rfAgree"><span>개인정보 수집·이용에 동의합니다 <b>(필수)</b><br/><i>· 수집항목: 성함·연락처·참석정보 / 목적: 예식 참석 집계 / 보유: 예식 후 파기</i></span></label>
+        <button class="btn-fill" type="submit" style="width:100%;margin-top:4px">참석 여부 전달하기</button>
+      </form>
+      <div class="rf-done" id="rfDone" hidden></div>
     </div>
     <!-- 화환 -->
     <div class="blk" id="t-flower">
@@ -568,6 +623,12 @@
       <p class="msg" style="font-size:13.5px">축하 화환은 정중히 사양합니다.<br/>따뜻한 마음만 감사히 받겠습니다.</p>
     </div>
   </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-x" onclick="closeLightbox()">✕</button>
+  <img id="lbImg" src="" alt="웨딩 사진" />
 </div>
 
 <div class="toast" id="toast"></div>
@@ -697,7 +758,7 @@
     if(d!==today)setTimeout(()=>popDim.classList.add('open'),900);})();
 
   /* 네이버 지도 (NCP Maps) */
-  const VENUE={lat:36.35418,lng:127.38454,name:'대전 마리드엘'}; /* SAMPLE 좌표(둔산동) — 실주소 확정 시 교체 */
+  const VENUE={lat:36.36764,lng:127.38069,name:'대전 마리드엘'}; /* 만년로 69 (실측) */
   function makeNaverMap(elId){
     if(!window.naver||!naver.maps)return null;
     const el=document.getElementById(elId);if(!el)return null;
@@ -711,6 +772,43 @@
   function initSheetMap(){
     if(_nmSheet){naver.maps.Event.trigger(_nmSheet,'resize');_nmSheet.setCenter(new naver.maps.LatLng(VENUE.lat,VENUE.lng));return;}
     _nmSheet=makeNaverMap('naverMapSheet');}
+
+  /* lightbox (사진 크게 보기) */
+  function openLightbox(url){const lb=document.getElementById('lightbox');document.getElementById('lbImg').src=url;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLightbox(e){if(e&&e.target&&e.target.id==='lbImg')return;document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+  document.querySelectorAll('.gallery .gslide,.gallery .ph').forEach(el=>{
+    el.addEventListener('click',()=>{const m=getComputedStyle(el).backgroundImage.match(/url\(["']?(.*?)["']?\)/);if(m&&m[1])openLightbox(m[1]);});});
+
+  /* 바텀시트 grab 핸들로 닫기 */
+  {const g=document.querySelector('.sheet-grab');if(g)g.onclick=closeSheet;}
+
+  /* RSVP 폼 (item 8) → Apps Script 시트 저장 (item 9) */
+  const RSVP_ENDPOINT=''; /* ← 배포한 Apps Script /exec URL 입력 시 구글시트 자동저장. 비우면 localStorage 데모 */
+  (function(){
+    const form=document.getElementById('rsvpForm');if(!form)return;
+    const compWrap=document.getElementById('rfCompWrap');
+    function syncAttend(){const a=form.querySelector('input[name=attend]:checked').value;compWrap.style.display=(a==='참석')?'':'none';}
+    form.querySelectorAll('input[name=attend]').forEach(r=>r.addEventListener('change',syncAttend));syncAttend();
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const attend=form.querySelector('input[name=attend]:checked').value;
+      const side=form.querySelector('input[name=side]:checked').value;
+      const name=document.getElementById('rfName').value.trim();
+      const phone=document.getElementById('rfPhone').value.trim();
+      if(!name||!phone){toast('성함과 연락처를 입력해 주세요');return;}
+      if(!document.getElementById('rfAgree').checked){toast('개인정보 수집·이용에 동의해 주세요 (필수)');return;}
+      const comp=(attend==='참석')?parseInt(document.getElementById('rfComp').value||'0',10):0;
+      const total=(attend==='참석')?comp+1:0;
+      const rec={attend,side,name,phone,companions:comp,total,ts:new Date().toISOString()};
+      try{const K='wj_hg_rsvp';const arr=JSON.parse(localStorage.getItem(K)||'[]');arr.push(rec);localStorage.setItem(K,JSON.stringify(arr));}catch(_){}
+      if(RSVP_ENDPOINT){try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});}catch(_){}}
+      const done=document.getElementById('rfDone');
+      done.innerHTML=(attend==='참석')
+        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}<br/>소중한 걸음 미리 감사드립니다.</div>`
+        :`<div class="big">참석이 어려우시군요</div><div class="sub">${side} · ${name}<br/>마음 전해주셔서 감사합니다.</div>`;
+      form.style.display='none';done.hidden=false;
+      toast('참석 여부가 전달되었습니다');});
+  })();
 
   /* toast */
   let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
