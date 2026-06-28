@@ -783,7 +783,7 @@
   {const g=document.querySelector('.sheet-grab');if(g)g.onclick=closeSheet;}
 
   /* RSVP 폼 (item 8) → Apps Script 시트 저장 (item 9) */
-  const RSVP_ENDPOINT=''; /* ← 배포한 Apps Script /exec URL 입력 시 구글시트 자동저장. 비우면 localStorage 데모 */
+  const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbxzpCkxTSEwmS-fuDXd8ymGY0E2LMOeeySb-rCUI6LcAERMSZTqEhOJK0AEStnMxckqlA/exec'; /* Apps Script 웹앱 → 구글시트 자동저장 */
   (function(){
     const form=document.getElementById('rsvpForm');if(!form)return;
     const compWrap=document.getElementById('rfCompWrap');
