@@ -37,8 +37,9 @@
     border-left:1px solid rgba(56,55,55,.05);border-right:1px solid rgba(56,55,55,.05);
     box-shadow:0 0 60px rgba(60,52,42,.06)}
   /* 편지지 질감 (미세 그레인 오버레이) */
-  .frame::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .frame::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.18;mix-blend-mode:multiply;
+    background-size:170px 170px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   section{padding:88px 34px;position:relative}
   .label{font-family:'Cormorant Garamond',serif;letter-spacing:.46em;text-transform:uppercase;
     font-size:12px;color:var(--gold);text-align:center;margin-bottom:20px;padding-left:.46em}
@@ -68,10 +69,10 @@
   .hero-names span{font-family:'Gowun Batang',serif;font-size:33px;font-weight:700;color:var(--ink);letter-spacing:.08em}
   .hero-names .hh{color:var(--rose-d);font-size:23px;font-style:normal;line-height:1}
   .cover-photo{width:100%;aspect-ratio:3/4;border-radius:6px;overflow:hidden;position:relative;
-    background:url(images/g6.jpg) center/cover no-repeat #e7ddd3;box-shadow:0 16px 40px rgba(95,83,71,.22)}
-  .cover .when{font-family:'Gowun Dodum',serif;font-size:19px;margin-top:30px;letter-spacing:.04em}
-  .cover .where{font-family:'Gowun Dodum',serif;font-size:15px;color:var(--ink-2);margin-top:8px}
-  .cover .addr{font-size:12.5px;color:var(--mut);margin-top:4px}
+    background:url(images/cover/cover.jpg) center/cover no-repeat #e7ddd3;box-shadow:0 16px 40px rgba(95,83,71,.22)}
+  .cover .when{font-family:'Gowun Batang',serif;font-weight:700;font-size:23px;margin-top:32px;letter-spacing:.03em;color:var(--ink)}
+  .cover .where{font-family:'Gowun Batang',serif;font-size:17px;color:var(--rose-d);margin-top:10px;letter-spacing:.02em}
+  .cover .addr{font-size:13px;color:var(--mut);margin-top:6px}
 
   /* INVITATION */
   .invite{text-align:center}
@@ -102,10 +103,10 @@
   .gslide{flex:0 0 78%;aspect-ratio:3/4;border-radius:8px;scroll-snap-align:center;background-size:cover}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
   .ph{aspect-ratio:1;border-radius:3px;background-size:cover}
-  .p1{background:url(images/g1.jpg) center/cover no-repeat #e7ddd3}.p2{background:url(images/g2.jpg) center/cover no-repeat #e7ddd3}
-  .p3{background:url(images/g3.jpg) center/cover no-repeat #e7ddd3}.p4{background:url(images/g4.jpg) center/cover no-repeat #e7ddd3}
-  .p5{background:url(images/g5.jpg) center/cover no-repeat #e7ddd3}.p6{background:url(images/g6.jpg) center/cover no-repeat #e7ddd3}
-  .p7{background:url(images/closing.jpg) center/cover no-repeat #e7ddd3}
+  .p1{background:url(images/gallery/g1.jpg) center/cover no-repeat #e7ddd3}.p2{background:url(images/gallery/g2.jpg) center/cover no-repeat #e7ddd3}
+  .p3{background:url(images/gallery/g3.jpg) center/cover no-repeat #e7ddd3}.p4{background:url(images/gallery/g4.jpg) center/cover no-repeat #e7ddd3}
+  .p5{background:url(images/gallery/g5.jpg) center/cover no-repeat #e7ddd3}.p6{background:url(images/gallery/g6.jpg) center/cover no-repeat #e7ddd3}
+  .p7{background:url(images/closing/closing.jpg) center/cover no-repeat #e7ddd3}
   .gdots{color:var(--mut);font-size:12px;letter-spacing:.15em;margin-top:6px}
 
   /* CALENDAR */
@@ -138,6 +139,16 @@
   .transit{text-align:left;margin-top:24px;border-top:1px solid var(--line);padding-top:20px}
   .transit h4{font-family:'Gowun Dodum',serif;font-size:14px;margin-bottom:6px}
   .transit p{font-size:13px;color:var(--ink-2);margin-bottom:12px;line-height:1.8}.transit .dot{color:var(--rose-d)}
+  /* 전세버스 */
+  .charter{margin-top:30px;border-top:1px solid var(--line);padding-top:26px;text-align:center}
+  .charter-h{font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--ink)}
+  .charter-sub{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.8}
+  .bus-card{text-align:left;background:var(--pink-bg);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:14px}
+  .bus-card .bus-no{font-family:'Gowun Batang',serif;font-weight:700;font-size:14px;color:var(--rose-d);margin-bottom:10px}
+  .bus-card ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .bus-card li{font-size:13px;color:var(--ink-2);line-height:1.6;display:flex;gap:8px}
+  .bus-card li b{flex:0 0 42px;color:var(--ink);font-weight:700}
+  .charter-note{text-align:left;font-size:11.5px;color:var(--mut);line-height:1.85;margin-top:14px}
 
   /* INFORMATION cards */
   .info{text-align:center;background:var(--bg-2)}
@@ -184,7 +195,7 @@
 
   /* CLOSING */
   .closing{padding:0;position:relative;height:90vh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
-  .closing .img{position:absolute;inset:0;background:url(images/closing.jpg) center/cover no-repeat #2a2622}
+  .closing .img{position:absolute;inset:0;background:url(images/closing/closing.jpg) center/cover no-repeat #2a2622}
   .closing .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5))}
   .closing .inner{position:relative;z-index:2;width:100%;text-align:center;padding:40px 32px 44px;color:#fff}
   .closing .kakao{display:inline-flex;align-items:center;gap:8px;background:#fae100;color:#3a2e00;border:0;border-radius:40px;padding:14px 26px;font-size:14px;font-family:'Gowun Dodum',serif;font-weight:700;cursor:pointer}
@@ -248,14 +259,13 @@
     border-radius:10px;padding:13px 16px;margin-bottom:8px;font-size:13px}
   .s-acc .row .who{color:var(--mut);font-size:11px;display:block;margin-top:2px}
   .s-cal{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 14px;margin-top:20px}
-  .s-cal .ym{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.14em;margin-bottom:10px;color:var(--rose-d)}
+  .s-cal .ym{font-family:'Gowun Batang',serif;font-weight:700;font-size:15px;letter-spacing:.04em;margin-bottom:12px;color:var(--rose-d)}
   .s-cal table{width:100%;border-collapse:collapse}
   .s-cal th{font-size:11px;color:var(--mut);padding:5px 0;font-weight:400}
   .s-cal td{font-size:13px;padding:6px 0;color:var(--ink-2)}
   .s-cal td.sun{color:var(--rose-d)}
-  .s-cal td.mark{position:relative;color:#fff;font-weight:700}
-  .s-cal td.mark::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:28px;height:28px;background:var(--rose);border-radius:50%;z-index:-1}
-  .s-cal td.mark::after{content:'♥';position:absolute;left:50%;top:-7px;transform:translateX(-50%);font-size:9px;color:var(--rose-d)}
+  .s-cal td.mark{position:relative;color:#fff;font-weight:700;background:radial-gradient(circle 15px at 50% 54%,var(--rose) 98%,transparent 100%)}
+  .s-cal td.mark::after{content:'♥';position:absolute;left:50%;top:-5px;transform:translateX(-50%);font-size:9px;color:var(--rose-d)}
   .s-arch{margin:22px auto 0;max-width:250px;background:var(--paper);border:1px solid var(--line);border-radius:120px 120px 16px 16px;padding:36px 22px 24px}
   .s-arch .nm{font-family:'Gowun Dodum',serif;font-size:16px}.s-arch .meta{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.9}
   .btn-fill{background:var(--rose);color:#fff;border:0;border-radius:24px;padding:12px 26px;font-size:13.5px;font-weight:700;margin-top:18px;cursor:pointer;font-family:'Gowun Dodum',serif}
@@ -397,7 +407,6 @@
     <h2 class="kr">오시는 길</h2>
     <div class="place">대전 마리드엘</div>
     <div class="place-sub">6층 · 본식 오후 1시</div>
-    <div class="tel">Tel. 042-485-1515</div>
     <!-- 네이버 동적지도 (NCP Maps). SAMPLE 좌표 — 실주소 확정 시 VENUE 좌표 교체 -->
     <div class="map"><div id="naverMap"></div></div>
     <div class="nav-btns">
@@ -407,6 +416,28 @@
       <h4>자가용</h4><p><span class="dot">●</span> 내비에 "대전 마리드엘" 검색 · 넓은 주차장 완비</p>
       <h4>지하철</h4><p><span class="dot">●</span> 1호선 정부청사역에서 차량 약 5분</p>
       <h4>버스</h4><p><span class="dot">●</span> 만년동(대전예술의전당) 일대 정류장 하차</p>
+    </div>
+    <!-- 전세버스 (SAMPLE: 출발지·시간·연락처 발행 전 확정) -->
+    <div class="charter">
+      <div class="charter-h">🚌 전세버스 안내</div>
+      <p class="charter-sub">멀리서 와주시는 분들을 위해<br/>창원·부산에서 전세버스를 운행합니다.</p>
+      <div class="bus-card">
+        <div class="bus-no">1호차 · 창원 출발</div>
+        <ul>
+          <li><b>탑승지</b> 창원시 ○○ (장소 확정 예정)</li>
+          <li><b>출발</b> 10/24(토) 오전 ○시 ○분</li>
+          <li><b>문의</b> 010-○○○○-○○○○</li>
+        </ul>
+      </div>
+      <div class="bus-card">
+        <div class="bus-no">2호차 · 부산 출발</div>
+        <ul>
+          <li><b>탑승지</b> 부산시 ○○ (장소 확정 예정)</li>
+          <li><b>출발</b> 10/24(토) 오전 ○시 ○분</li>
+          <li><b>문의</b> 010-○○○○-○○○○</li>
+        </ul>
+      </div>
+      <p class="charter-note">· 출발 10분 전까지 탑승지 도착 부탁드립니다.<br/>· 정시 출발하며, 현장 사정에 따라 시간이 변동될 수 있습니다.<br/>· 예식 종료 후 동일 장소로 복귀 버스를 운행합니다.</p>
     </div>
   </section>
 
@@ -423,18 +454,6 @@
 2시간 무료 주차됩니다.</p></div><!-- SAMPLE: 주차 시간/요금 -->
     </div>
     <div class="gdots">← 카드를 넘겨보세요 →</div>
-  </section>
-
-  <!-- GUESTBOOK -->
-  <section id="guestbook" class="guest rv">
-    <div class="label">Guestbook</div>
-    <h2 class="kr">방명록</h2>
-    <div class="gb-list" id="gbList"></div>
-    <form class="gb-form" id="gbForm">
-      <input id="gbName" placeholder="성함" maxlength="20" required />
-      <textarea id="gbMsg" placeholder="축하 메시지를 남겨주세요" maxlength="200" required></textarea>
-      <button class="submit" type="submit">메시지 남기기</button>
-    </form>
   </section>
 
   <!-- ACCOUNT -->
@@ -457,6 +476,18 @@
         <div class="acc-item"><div><div class="bk">신한은행 000-000-000000</div><div class="who">아버지 이재호</div></div><button class="copy" data-acc="신한은행 000-000-000000">복사</button></div>
       </div>
     </div>
+  </section>
+
+  <!-- GUESTBOOK (마음전달 아래) -->
+  <section id="guestbook" class="guest rv">
+    <div class="label">Guestbook</div>
+    <h2 class="kr">방명록</h2>
+    <div class="gb-list" id="gbList"></div>
+    <form class="gb-form" id="gbForm">
+      <input id="gbName" placeholder="성함" maxlength="20" required />
+      <textarea id="gbMsg" placeholder="축하 메시지를 남겨주세요" maxlength="200" required></textarea>
+      <button class="submit" type="submit">메시지 남기기</button>
+    </form>
   </section>
 
   <!-- FLOWER -->
@@ -512,7 +543,7 @@
 <nav class="bottomnav">
   <div class="bn-icons">
     <button data-open-info="loc"><span class="i">📍</span>오시는길</button>
-    <button data-open-info="heart"><span class="i">💳</span>계좌정보</button>
+    <button data-open-info="heart"><span class="i">💝</span>마음전달</button>
     <button data-open-info="rsvp"><span class="i">✓</span>참석여부</button>
   </div>
   <button class="bn-cta" data-open-info="invite">예식정보보기</button>
@@ -548,7 +579,7 @@
     <div class="blk" id="t-schedule">
       <div class="sc">the wedding day</div>
       <div class="kt">2026년 10월 24일 토요일 오후 1시</div>
-      <p class="msg" style="font-size:13.5px">대전 마리드엘<br/>예식 30분 전 도착을 추천드려요.</p>
+      <p class="msg" style="font-size:13.5px">대전 마리드엘 · 서구 만년로 69</p>
       <div class="s-cal" id="sheetCal"></div>
       <div class="s-arch" style="border-radius:16px">
         <div class="nm" style="font-size:30px;font-family:'Gowun Batang',serif;font-weight:700;color:var(--rose-d)" id="sheetDday">D-—</div>
@@ -710,7 +741,17 @@
   renderGB();
 
   /* bgm (demo toggle — 발행 시 audio 음원 연결) */
-  let bgmOn=false;document.getElementById('bgm').onclick=function(){bgmOn=!bgmOn;this.textContent=bgmOn?'♫':'♪';this.classList.toggle('playing',bgmOn);toast(bgmOn?'배경음악 ON (데모)':'배경음악 OFF');};
+  /* 음원: 드라이브 폴더(142TYOExxpxvCm0fnnMwcXpSHRe7ReFBC)에 mp3 업로드+공개 후
+     아래 BGM_URL에 https://drive.google.com/uc?export=download&id=파일ID 입력하면 자동 연결 */
+  const BGM_URL='';
+  let bgmAudio=null,bgmOn=false;
+  document.getElementById('bgm').onclick=function(){
+    if(!BGM_URL){toast('배경음악은 음원 연결 후 재생됩니다');return;}
+    if(!bgmAudio){bgmAudio=new Audio(BGM_URL);bgmAudio.loop=true;}
+    bgmOn=!bgmOn;
+    if(bgmOn){bgmAudio.play().catch(()=>{toast('재생 실패 — 음원 링크를 확인해 주세요');bgmOn=false;this.textContent='♪';this.classList.remove('playing');});}
+    else{bgmAudio.pause();}
+    this.textContent=bgmOn?'♫':'♪';this.classList.toggle('playing',bgmOn);};
 
   /* info bottom sheet */
   const dim=document.getElementById('dim'),sheet=document.getElementById('sheet'),
@@ -741,7 +782,7 @@
   /* sheet 일정 미니 캘린더 (Oct 2026) */
   (function(){const cal=document.getElementById('sheetCal');if(!cal)return;
     const days=['일','월','화','수','목','금','토'];const first=new Date(2026,9,1).getDay();
-    let html='<div class="ym">OCTOBER 2026</div><table><thead><tr>';
+    let html='<div class="ym">2026년 10월</div><table><thead><tr>';
     days.forEach((d,i)=>html+='<th'+(i===0?' style="color:var(--rose-d)"':'')+'>'+d+'</th>');
     html+='</tr></thead><tbody><tr>';
     for(let b=0;b<first;b++)html+='<td></td>';
