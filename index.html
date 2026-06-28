@@ -36,6 +36,9 @@
       var(--bg);
     border-left:1px solid rgba(56,55,55,.05);border-right:1px solid rgba(56,55,55,.05);
     box-shadow:0 0 60px rgba(60,52,42,.06)}
+  /* 편지지 질감 (미세 그레인 오버레이) */
+  .frame::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   section{padding:88px 34px;position:relative}
   .label{font-family:'Cormorant Garamond',serif;letter-spacing:.46em;text-transform:uppercase;
     font-size:12px;color:var(--gold);text-align:center;margin-bottom:20px;padding-left:.46em}
@@ -274,7 +277,8 @@
   .rf-done .sub{font-size:13px;color:var(--ink-2);line-height:1.95}
 
   /* GALLERY 더보기 */
-  .grid-more{margin-top:6px}
+  .grid-more{margin-top:6px;display:none}
+  .grid-more.show{display:grid}
   .btn-more{display:block;margin:20px auto 0;padding:11px 26px;border:1px solid var(--line);border-radius:40px;
     background:var(--paper);color:var(--ink-2);font-size:13px;font-family:'Gowun Dodum',serif;cursor:pointer;letter-spacing:.04em}
   .gswipe .gslide,.grid .ph{cursor:zoom-in}
@@ -315,7 +319,7 @@
   <section class="cover">
     <div class="hero-names"><span>현근</span><i class="hh">♥</i><span>우진</span></div>
     <div class="cover-photo"></div>
-    <div class="when">26년 10월 24일 · 오후 1시</div>
+    <div class="when">26년 10월 24일 토요일 · 오후 1시</div>
     <div class="where">대전 마리드엘</div>
     <div class="addr">대전광역시 서구 만년로 69, 마리드엘 6층</div>
   </section>
@@ -357,7 +361,7 @@
       <div class="ph p2"></div><div class="ph p5"></div><div class="ph p6"></div>
       <div class="ph p4"></div><div class="ph p1"></div><div class="ph p3"></div>
     </div>
-    <div class="grid grid-more" id="galMore" hidden>
+    <div class="grid grid-more" id="galMore">
       <div class="ph p7"></div><div class="ph p3"></div><div class="ph p5"></div>
       <div class="ph p2"></div><div class="ph p6"></div><div class="ph p1"></div>
       <div class="ph p4"></div><div class="ph p7"></div><div class="ph p2"></div>
@@ -730,7 +734,7 @@
 
   /* share (Web Share API → 미지원 시 URL 복사) */
   function shareInvite(){const url=location.href.split('#')[0];
-    if(navigator.share){navigator.share({title:'현근 ♥ 우진 결혼합니다',text:'2026.10.24 (土) 오후 1시 · 대전 마리드엘',url}).catch(()=>{});}
+    if(navigator.share){navigator.share({title:'현근 ♥ 우진 결혼합니다',text:'2026.10.24 (토) 오후 1시 · 대전 마리드엘',url}).catch(()=>{});}
     else if(navigator.clipboard){navigator.clipboard.writeText(url);toast('청첩장 주소가 복사되었습니다');}
     else toast(url);}
 
@@ -747,7 +751,7 @@
 
   /* gallery 더보기 */
   function toggleGallery(){const m=document.getElementById('galMore'),b=document.getElementById('galMoreBtn');
-    const open=m.hasAttribute('hidden');if(open){m.removeAttribute('hidden');b.textContent='접기 −';}else{m.setAttribute('hidden','');b.textContent='사진 더 보기 +';}}
+    b.textContent=m.classList.toggle('show')?'접기 −':'사진 더 보기 +';}
 
   /* entry RSVP popup (오늘 하루 보지 않기 = localStorage 당일) */
   const POP_KEY='wj_hg_pop_dismiss';const popDim=document.getElementById('popDim');
