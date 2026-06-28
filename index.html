@@ -11,8 +11,8 @@
 <meta property="og:title" content="오현근 ♥ 이우진 결혼합니다" />
 <meta property="og:description" content="2026년 10월 24일 토요일 오후 1시 · 대전 마리드엘 3층 그랜드홀" />
 <meta property="og:url" content="https://datatous.github.io/wedding-invite/" />
-<!-- SAMPLE: 대표 사진 확정되면 1200x630 실사진 og.png로 교체 (절대경로 https 필수) -->
-<meta property="og:image" content="https://datatous.github.io/wedding-invite/og.png" />
+<!-- 야외스냅 기반 OG (1200x630). 사진 교체 시 _ogcard2.html 재렌더 -->
+<meta property="og:image" content="https://datatous.github.io/wedding-invite/og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -63,9 +63,7 @@
   .hero-names span{font-family:'Gowun Batang',serif;font-size:33px;font-weight:700;color:var(--ink);letter-spacing:.08em}
   .hero-names .hh{color:var(--rose-d);font-size:23px;font-style:normal;line-height:1}
   .cover-photo{width:100%;aspect-ratio:3/4;border-radius:6px;overflow:hidden;position:relative;
-    background:linear-gradient(170deg,#cdbfb0,#8a7766 55%,#5f5347);box-shadow:0 16px 40px rgba(95,83,71,.22)}
-  .cover-photo::after{content:"대표 사진";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    color:rgba(255,255,255,.6);font-family:'Gowun Dodum',serif;font-size:14px;letter-spacing:.2em}
+    background:url(images/g6.jpg) center/cover no-repeat #e7ddd3;box-shadow:0 16px 40px rgba(95,83,71,.22)}
   .cover .when{font-family:'Gowun Dodum',serif;font-size:19px;margin-top:30px;letter-spacing:.04em}
   .cover .where{font-family:'Gowun Dodum',serif;font-size:15px;color:var(--ink-2);margin-top:8px}
   .cover .addr{font-size:12.5px;color:var(--mut);margin-top:4px}
@@ -99,9 +97,9 @@
   .gslide{flex:0 0 78%;aspect-ratio:3/4;border-radius:8px;scroll-snap-align:center;background-size:cover}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
   .ph{aspect-ratio:1;border-radius:3px;background-size:cover}
-  .p1{background:linear-gradient(150deg,#cdbfb0,#8a7766)}.p2{background:linear-gradient(150deg,#d8c4c4,#b08a8a)}
-  .p3{background:linear-gradient(150deg,#c2bdb0,#7f7a68)}.p4{background:linear-gradient(150deg,#d4c6b4,#9a8568)}
-  .p5{background:linear-gradient(150deg,#c9bcc0,#8d7a80)}.p6{background:linear-gradient(150deg,#bfb3a3,#766955)}
+  .p1{background:url(images/g1.jpg) center/cover no-repeat #e7ddd3}.p2{background:url(images/g2.jpg) center/cover no-repeat #e7ddd3}
+  .p3{background:url(images/g3.jpg) center/cover no-repeat #e7ddd3}.p4{background:url(images/g4.jpg) center/cover no-repeat #e7ddd3}
+  .p5{background:url(images/g5.jpg) center/cover no-repeat #e7ddd3}.p6{background:url(images/g6.jpg) center/cover no-repeat #e7ddd3}
   .gdots{color:var(--mut);font-size:12px;letter-spacing:.15em;margin-top:6px}
 
   /* CALENDAR */
@@ -180,15 +178,15 @@
 
   /* CLOSING */
   .closing{padding:0;position:relative;height:90vh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
-  .closing .img{position:absolute;inset:0;background:linear-gradient(180deg,#c3b3a2,#7a6757 55%,#4a4036)}
+  .closing .img{position:absolute;inset:0;background:url(images/g1.jpg) center/cover no-repeat #4a4036}
   .closing .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5))}
   .closing .inner{position:relative;z-index:2;width:100%;text-align:center;padding:40px 32px 44px;color:#fff}
   .closing .kakao{display:inline-flex;align-items:center;gap:8px;background:#fae100;color:#3a2e00;border:0;border-radius:40px;padding:14px 26px;font-size:14px;font-family:'Gowun Dodum',serif;font-weight:700;cursor:pointer}
   .footer{text-align:center;padding:24px;font-size:10px;letter-spacing:.15em;color:var(--mut);background:var(--bg)}
 
   /* FLOATING */
-  .fabs{position:fixed;left:calc(50% - 215px + 16px);bottom:84px;z-index:50;display:flex;flex-direction:column;gap:10px}
-  @media(max-width:430px){.fabs{left:16px}}
+  .fabs{position:fixed;right:calc(50% - 215px + 16px);bottom:84px;z-index:50;display:flex;flex-direction:column;gap:10px}
+  @media(max-width:430px){.fabs{right:16px}}
   .fab{width:46px;height:46px;border-radius:50%;background:rgba(255,253,250,.85);backdrop-filter:blur(6px);border:1px solid var(--line);
     box-shadow:0 4px 14px rgba(56,55,55,.14);font-size:17px;color:var(--ink-2);cursor:pointer;display:flex;align-items:center;justify-content:center}
   /* BGM 좌상단 */
@@ -456,8 +454,8 @@
 
 <!-- FLOATING (bottom-left: 공유 · 맨 위로) -->
 <div class="fabs">
-  <button class="fab" onclick="shareInvite()" title="공유하기">🔗</button>
   <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+  <button class="fab" onclick="shareInvite()" title="공유하기">🔗</button>
 </div>
 
 <!-- ENTRY RSVP POPUP -->
