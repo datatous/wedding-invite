@@ -22,28 +22,28 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
   :root{
-    --bg:#f4f1ec; --bg-2:#efeae3; --paper:#fbf9f6;
-    --ink:#4a443d; --ink-2:#6b645b; --mut:#a79f95;
-    --rose:#e2a0a0; --rose-d:#d18a8a; --line:rgba(74,68,61,.14);
+    --bg:#f8f5f0; --bg-2:#f1ece4; --paper:#fffdfa;
+    --ink:#4a443d; --ink-2:#736c62; --mut:#b0a89d;
+    --rose:#dcab9f; --rose-d:#c69186; --gold:#bfa980; --line:rgba(74,68,61,.10);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
-  body{font-family:'Pretendard','Pretendard Variable',system-ui,sans-serif;color:var(--ink);background:#e6e0d7;
-    line-height:1.9;font-weight:400;letter-spacing:-.01em}
+  body{font-family:'Pretendard','Pretendard Variable',system-ui,sans-serif;color:var(--ink);background:#e8e2d8;
+    line-height:1.95;font-weight:400;letter-spacing:-.005em}
   .frame{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;
-    position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(60,52,42,.16);padding-bottom:66px}
-  section{padding:74px 32px;position:relative}
-  .label{font-family:'Cormorant Garamond',serif;letter-spacing:.42em;text-transform:uppercase;
-    font-size:13px;color:var(--mut);text-align:center;margin-bottom:18px;padding-left:.42em}
-  h2.kr{font-family:'Nanum Myeongjo',serif;text-align:center;font-size:22px;color:var(--ink);
-    font-weight:700;margin-bottom:30px;letter-spacing:.02em}
+    position:relative;overflow:hidden;box-shadow:0 30px 90px rgba(60,52,42,.14);padding-bottom:66px}
+  section{padding:88px 34px;position:relative}
+  .label{font-family:'Cormorant Garamond',serif;letter-spacing:.46em;text-transform:uppercase;
+    font-size:12px;color:var(--gold);text-align:center;margin-bottom:20px;padding-left:.46em}
+  h2.kr{font-family:'Nanum Myeongjo',serif;text-align:center;font-size:21px;color:var(--ink);
+    font-weight:700;margin-bottom:34px;letter-spacing:.03em}
   .rv{opacity:0;transform:translateY(22px);transition:all 1s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
   .btn-line{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--line);
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Nanum Myeongjo',serif;cursor:pointer}
 
   /* COVER */
-  .cover{padding:34px 32px 58px;text-align:center}
+  .cover{padding:78px 32px 60px;text-align:center}
   .names-top{display:flex;align-items:center;justify-content:center;margin-bottom:24px}
   .nt{flex:1}.nt .role{font-family:'Nanum Myeongjo',serif;font-size:12px;color:var(--mut)}
   .nt .nm{font-family:'Nanum Myeongjo',serif;font-size:19px;color:var(--ink);font-weight:700;margin-top:4px;letter-spacing:.05em}
@@ -251,7 +251,47 @@
   .s-arch .nm{font-family:'Nanum Myeongjo',serif;font-size:16px}.s-arch .meta{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.9}
   .btn-fill{background:var(--rose);color:#fff;border:0;border-radius:24px;padding:12px 26px;font-size:13.5px;font-weight:700;margin-top:18px;cursor:pointer;font-family:'Nanum Myeongjo',serif}
 
-  .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fbf9f6;padding:12px 22px;border-radius:30px;font-size:13px;opacity:0;transition:.3s;z-index:120;pointer-events:none}
+  /* GALLERY 더보기 */
+  .grid-more{margin-top:6px}
+  .btn-more{display:block;margin:20px auto 0;padding:11px 26px;border:1px solid var(--line);border-radius:40px;
+    background:var(--paper);color:var(--ink-2);font-size:13px;font-family:'Nanum Myeongjo',serif;cursor:pointer;letter-spacing:.04em}
+
+  /* TOP NAV */
+  .topnav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:58;
+    display:flex;align-items:center;justify-content:space-between;padding:14px 18px;
+    background:linear-gradient(180deg,rgba(248,245,240,.92),rgba(248,245,240,0));pointer-events:none}
+  .topnav .mono{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:.12em;color:var(--ink);pointer-events:auto}
+  .topnav .menu-btn{pointer-events:auto;width:38px;height:38px;border-radius:50%;background:rgba(255,253,250,.8);
+    backdrop-filter:blur(6px);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;cursor:pointer}
+  .topnav .menu-btn span{width:16px;height:1.5px;background:var(--ink)}
+  .navmenu{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-100%);width:100%;max-width:430px;
+    background:var(--bg);z-index:100;padding:64px 0 28px;transition:transform .4s cubic-bezier(.3,.8,.3,1);
+    box-shadow:0 14px 40px rgba(0,0,0,.14);border-radius:0 0 20px 20px}
+  .navmenu.open{transform:translateX(-50%) translateY(0)}
+  .navmenu .nav-close{position:absolute;right:16px;top:16px;font-size:22px;color:var(--mut);background:none;border:0;cursor:pointer}
+  .navmenu a{display:block;text-align:center;padding:13px 0;font-family:'Nanum Myeongjo',serif;font-size:15px;color:var(--ink);text-decoration:none;letter-spacing:.06em}
+  .navmenu a .en{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:var(--gold);letter-spacing:.2em;margin-top:2px}
+  .navdim{position:fixed;inset:0;background:rgba(40,35,30,.35);z-index:99;opacity:0;visibility:hidden;transition:.3s}
+  .navdim.open{opacity:1;visibility:visible}
+
+  /* ENTRY RSVP POPUP */
+  .pop-dim{position:fixed;inset:0;background:rgba(40,35,30,.55);z-index:110;display:none;align-items:center;justify-content:center;padding:24px}
+  .pop-dim.open{display:flex}
+  .pop{width:100%;max-width:330px;background:var(--paper);border-radius:18px;overflow:hidden;text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);animation:popin .4s cubic-bezier(.2,.8,.3,1)}
+  @keyframes popin{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+  .pop .pop-top{padding:34px 26px 26px}
+  .pop .pop-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--rose-d)}
+  .pop .pop-kt{font-family:'Nanum Myeongjo',serif;font-size:18px;font-weight:700;margin-top:8px}
+  .pop .pop-msg{font-size:13.5px;color:var(--ink-2);line-height:1.9;margin-top:14px}
+  .pop .pop-btns{display:flex;gap:8px;margin-top:22px}
+  .pop .pop-btns button{flex:1;padding:13px 0;border-radius:10px;font-size:14px;font-family:'Nanum Myeongjo',serif;cursor:pointer;border:0}
+  .pop .pop-yes{background:var(--rose);color:#fff}
+  .pop .pop-no{background:var(--bg-2);color:var(--ink-2)}
+  .pop .pop-foot{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+  .pop .pop-foot button{background:none;border:0;color:var(--mut);font-size:12px;cursor:pointer}
+
+  .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fbf9f6;padding:12px 22px;border-radius:30px;font-size:13px;opacity:0;transition:.3s;z-index:130;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .demo-tag{position:absolute;top:12px;left:12px;z-index:40;background:rgba(74,68,61,.7);color:#fff;font-size:9px;letter-spacing:.15em;padding:4px 9px;border-radius:20px}
 </style>
@@ -261,7 +301,6 @@
 
   <!-- COVER -->
   <section class="cover">
-    <span class="demo-tag">v2 · FULL · 비공개</span>
     <div class="names-top">
       <div class="nt"><div class="role">신랑</div><div class="nm">오현근</div></div>
       <div class="slash">/</div>
@@ -274,7 +313,7 @@
   </section>
 
   <!-- INVITATION -->
-  <section class="invite rv">
+  <section id="invite" class="invite rv">
     <div class="label">Invitation</div>
     <h2 class="kr">소중한 분들을 초대합니다</h2>
     <p class="poem">
@@ -299,7 +338,7 @@
   </section>
 
   <!-- GALLERY -->
-  <section class="gallery rv">
+  <section id="gallery" class="gallery rv">
     <div class="label">Gallery</div>
     <h2 class="kr">웨딩 갤러리</h2>
     <div class="gswipe">
@@ -310,10 +349,15 @@
       <div class="ph p2"></div><div class="ph p5"></div><div class="ph p6"></div>
       <div class="ph p4"></div><div class="ph p1"></div><div class="ph p3"></div>
     </div>
+    <div class="grid grid-more" id="galMore" hidden>
+      <div class="ph p1"></div><div class="ph p3"></div><div class="ph p5"></div>
+      <div class="ph p6"></div><div class="ph p2"></div><div class="ph p4"></div>
+    </div>
+    <button class="btn-more" id="galMoreBtn" onclick="toggleGallery()">사진 더 보기 +</button>
   </section>
 
   <!-- CALENDAR -->
-  <section class="cal rv">
+  <section id="calendar" class="cal rv">
     <div class="big-date">2026. 10. 24</div>
     <div class="day-sub">토요일 오후 1시</div>
     <table class="c">
@@ -335,7 +379,7 @@
   </section>
 
   <!-- LOCATION -->
-  <section class="loc rv">
+  <section id="location" class="loc rv">
     <div class="label">Location</div>
     <h2 class="kr">오시는 길</h2>
     <div class="place">대전 마리드엘</div>
@@ -353,7 +397,7 @@
   </section>
 
   <!-- INFORMATION -->
-  <section class="info rv">
+  <section id="info" class="info rv">
     <div class="label">Information</div>
     <h2 class="kr">예식 안내</h2>
     <div class="info-swipe">
@@ -368,7 +412,7 @@
   </section>
 
   <!-- GUESTBOOK -->
-  <section class="guest rv">
+  <section id="guestbook" class="guest rv">
     <div class="label">Guestbook</div>
     <h2 class="kr">방명록</h2>
     <div class="gb-list" id="gbList"></div>
@@ -380,7 +424,7 @@
   </section>
 
   <!-- ACCOUNT -->
-  <section class="account rv">
+  <section id="account" class="account rv">
     <div class="label">Account</div>
     <h2 class="kr">마음 전하실 곳</h2>
     <p class="desc">참석이 어려우신 분들을 위해<br/>계좌번호를 기재하였습니다.<br/>너그러운 마음으로 양해 부탁드립니다.</p>
@@ -437,6 +481,42 @@
   <div class="chat-in">
     <input id="chatInput" placeholder="궁금한 점을 물어보세요" />
     <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="mono">H &amp; W</div>
+  <button class="menu-btn" onclick="openMenu()" aria-label="메뉴"><span></span><span></span><span></span></button>
+</div>
+<div class="navdim" id="navdim" onclick="closeMenu()"></div>
+<nav class="navmenu" id="navmenu">
+  <button class="nav-close" onclick="closeMenu()">✕</button>
+  <a href="#invite" onclick="closeMenu()">인사말<span class="en">Invitation</span></a>
+  <a href="#gallery" onclick="closeMenu()">갤러리<span class="en">Gallery</span></a>
+  <a href="#calendar" onclick="closeMenu()">예식 일정<span class="en">Calendar</span></a>
+  <a href="#location" onclick="closeMenu()">오시는 길<span class="en">Location</span></a>
+  <a href="#info" onclick="closeMenu()">예식 안내<span class="en">Information</span></a>
+  <a href="#account" onclick="closeMenu()">마음 전하실 곳<span class="en">Account</span></a>
+  <a href="#guestbook" onclick="closeMenu()">방명록<span class="en">Guestbook</span></a>
+</nav>
+
+<!-- ENTRY RSVP POPUP -->
+<div class="pop-dim" id="popDim">
+  <div class="pop">
+    <div class="pop-top">
+      <div class="pop-en">save the date</div>
+      <div class="pop-kt">참석 여부 전달</div>
+      <div class="pop-msg">2026년 10월 24일 토요일 오후 1시<br/>오현근 ♥ 이우진의 결혼식에<br/>참석해 주시겠어요?</div>
+      <div class="pop-btns">
+        <button class="pop-yes" onclick="closePop();openSheet('rsvp')">참석 전달하기</button>
+        <button class="pop-no" onclick="closePop()">나중에</button>
+      </div>
+    </div>
+    <div class="pop-foot">
+      <button onclick="dismissPopToday()">오늘 하루 보지 않기</button>
+      <button onclick="closePop()">닫기 ✕</button>
+    </div>
   </div>
 </div>
 
@@ -645,6 +725,23 @@
     SECS.forEach(s=>{const el=document.getElementById('t-'+s);if(el&&el.offsetTop<=y)cur=s;});
     tabsEl.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.go===cur));
     const on=tabsEl.querySelector('button.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'});};
+
+  /* top nav menu */
+  const navmenu=document.getElementById('navmenu'),navdim=document.getElementById('navdim');
+  function openMenu(){navmenu.classList.add('open');navdim.classList.add('open');}
+  function closeMenu(){navmenu.classList.remove('open');navdim.classList.remove('open');}
+
+  /* gallery 더보기 */
+  function toggleGallery(){const m=document.getElementById('galMore'),b=document.getElementById('galMoreBtn');
+    const open=m.hasAttribute('hidden');if(open){m.removeAttribute('hidden');b.textContent='접기 −';}else{m.setAttribute('hidden','');b.textContent='사진 더 보기 +';}}
+
+  /* entry RSVP popup (오늘 하루 보지 않기 = localStorage 당일) */
+  const POP_KEY='wj_hg_pop_dismiss';const popDim=document.getElementById('popDim');
+  const today=new Date().toISOString().slice(0,10);
+  function closePop(){popDim.classList.remove('open');}
+  function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
+  (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
+    if(d!==today)setTimeout(()=>popDim.classList.add('open'),900);})();
 
   /* toast */
   let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
