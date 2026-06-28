@@ -126,7 +126,7 @@
   .loc .place-sub{font-family:'Gowun Dodum',serif;font-size:14px;color:var(--ink-2);margin-top:6px}
   .loc .tel{font-size:13px;color:var(--mut);margin-top:4px}
   .map{margin-top:22px;border-radius:10px;height:220px;border:1px solid var(--line);overflow:hidden;position:relative}
-  .map iframe{width:100%;height:100%;border:0;filter:grayscale(.12) contrast(.96)}
+  .map #naverMap{width:100%;height:100%}
   .nav-btns{display:flex;gap:8px;margin-top:14px}
   .nav-btns a{flex:1;text-align:center;padding:13px 0;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:13px;text-decoration:none;font-family:'Gowun Dodum',serif}
   .transit{text-align:left;margin-top:24px;border-top:1px solid var(--line);padding-top:20px}
@@ -232,7 +232,7 @@
   .s-venue{margin-top:18px}.s-venue .name{font-family:'Gowun Dodum',serif;font-size:16px;font-weight:700}
   .s-venue .addr{font-size:13px;color:var(--ink-2);margin-top:6px}
   .s-map{margin-top:16px;height:170px;border-radius:12px;border:1px solid var(--line);overflow:hidden}
-  .s-map iframe{width:100%;height:100%;border:0;filter:grayscale(.12) contrast(.96)}
+  .s-map #naverMapSheet{width:100%;height:100%}
   .s-mapapps{display:flex;gap:8px;margin-top:12px}
   .s-mapapps a{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 0;font-size:12px;color:var(--ink);cursor:pointer;font-family:'Gowun Dodum',serif;text-align:center;text-decoration:none}
   .s-acc{margin-top:16px;text-align:left}
@@ -364,11 +364,8 @@
     <div class="place">대전 마리드엘</div>
     <div class="place-sub">3층 그랜드홀 · 본식 오후 1시</div><!-- SAMPLE: 홀 이름/층 -->
     <div class="tel">Tel. 042-123-4567</div><!-- SAMPLE: 예식장 대표번호 -->
-    <!-- SAMPLE: 실제 주소 확정 시 q= 검색어/좌표 교체. 네이버 정식 타일은 Naver Cloud Maps 키 필요 -->
-    <div class="map">
-      <iframe loading="lazy" title="대전 마리드엘 지도"
-        src="https://maps.google.com/maps?q=%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98&hl=ko&z=16&output=embed"></iframe>
-    </div>
+    <!-- 네이버 동적지도 (NCP Maps). SAMPLE 좌표 — 실주소 확정 시 VENUE 좌표 교체 -->
+    <div class="map"><div id="naverMap"></div></div>
     <div class="nav-btns">
       <a href="https://map.naver.com/p/search/대전 마리드엘" target="_blank" rel="noopener">네이버지도</a><a href="https://map.kakao.com/?q=대전 마리드엘" target="_blank" rel="noopener">카카오맵</a><a href="tmap://search?name=대전 마리드엘" target="_blank" rel="noopener">티맵</a>
     </div>
@@ -532,10 +529,7 @@
         <div class="addr">대전광역시 서구 둔산로 100
           <button class="copy" data-acc="대전광역시 서구 둔산로 100" style="margin-left:6px">복사</button></div>
       </div>
-      <div class="s-map">
-        <iframe loading="lazy" title="대전 마리드엘 지도"
-          src="https://maps.google.com/maps?q=%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98&hl=ko&z=16&output=embed"></iframe>
-      </div>
+      <div class="s-map"><div id="naverMapSheet"></div></div>
       <div class="s-mapapps">
         <a href="https://map.naver.com/p/search/대전 마리드엘" target="_blank" rel="noopener">네이버지도</a>
         <a href="https://map.kakao.com/?q=대전 마리드엘" target="_blank" rel="noopener">카카오맵</a>
@@ -578,6 +572,8 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- 네이버 지도 SDK (NCP Maps · ncpKeyId) -->
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=k3k5ihdvk6"></script>
 <script>
   /* ===== wedding data (single source) ===== */
   const W = {
@@ -656,6 +652,7 @@
         sheetBody=document.getElementById('sheetBody'),tabsEl=document.getElementById('tabs');
   function openSheet(go){dim.classList.add('open');sheet.classList.add('open');document.body.style.overflow='hidden';
     const dd=document.getElementById('dd');if(dd)document.getElementById('sheetDday').textContent='D-'+dd.textContent;
+    setTimeout(()=>{if(typeof initSheetMap==='function')initSheetMap();},220);
     if(go)setTimeout(()=>gotoTab(go),60);}
   function closeSheet(){dim.classList.remove('open');sheet.classList.remove('open');document.body.style.overflow='';}
   function gotoTab(go){const el=document.getElementById('t-'+go);if(!el)return;
@@ -698,6 +695,22 @@
   function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
   (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
     if(d!==today)setTimeout(()=>popDim.classList.add('open'),900);})();
+
+  /* 네이버 지도 (NCP Maps) */
+  const VENUE={lat:36.35418,lng:127.38454,name:'대전 마리드엘'}; /* SAMPLE 좌표(둔산동) — 실주소 확정 시 교체 */
+  function makeNaverMap(elId){
+    if(!window.naver||!naver.maps)return null;
+    const el=document.getElementById(elId);if(!el)return null;
+    const pos=new naver.maps.LatLng(VENUE.lat,VENUE.lng);
+    const map=new naver.maps.Map(el,{center:pos,zoom:16,scrollWheel:false});
+    new naver.maps.Marker({position:pos,map,title:VENUE.name});
+    return map;}
+  let _nmMain=null,_nmSheet=null;
+  function initMainMap(){_nmMain=makeNaverMap('naverMap');}
+  if(window.naver&&naver.maps)initMainMap(); else window.addEventListener('load',initMainMap);
+  function initSheetMap(){
+    if(_nmSheet){naver.maps.Event.trigger(_nmSheet,'resize');_nmSheet.setCenter(new naver.maps.LatLng(VENUE.lat,VENUE.lng));return;}
+    _nmSheet=makeNaverMap('naverMapSheet');}
 
   /* toast */
   let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
