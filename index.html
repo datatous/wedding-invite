@@ -18,10 +18,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<!-- 손글씨 스크립트 폰트 (Our Wedding 손글씨 효과용) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" />
 <style>
   :root{
     --bg:#f7f5f1; --bg-2:#f1efe9; --paper:#ffffff; --pink-bg:#f7efef;
@@ -53,13 +49,8 @@
   /* COVER intro (full-bleed hero) — cinematic slow fade + ken-burns */
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @keyframes coverZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
-  @keyframes scriptIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:1.4s}
-  .cover .cover-script span{opacity:0;animation:scriptIn 1.5s cubic-bezier(.22,.61,.25,1) forwards}
-  .cover .cover-script .cs1{animation-delay:.55s}
-  .cover .cover-script .cs2{animation-delay:.92s}
-  .cover .cover-script .cs3{animation-delay:1.28s}
-  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-info,.cover .cover-script span{animation:none;opacity:1}}
+  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:.7s}
+  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-info{animation:none;opacity:1}}
   .btn-line{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--line);
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Pretendard',sans-serif;cursor:pointer}
 
@@ -69,22 +60,15 @@
   .cover-bg{position:absolute;inset:0;z-index:0;
     background:url(images/cover/cover.jpg) 50% 46%/cover no-repeat #2a2622;
     animation:coverZoom 6.5s ease-out both}
-  /* 밝은 야외 사진 위 흰 글씨 가독성용 어둠 베일(상·하 강조) */
+  /* 하단 이름 가독성용 그라디언트(상단은 사진 자연스럽게 밝게) */
   .cover-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(20,16,13,.42) 0%,rgba(20,16,13,.16) 30%,rgba(20,16,13,.20) 56%,rgba(20,16,13,.40) 78%,rgba(20,16,13,.70) 100%)}
-  .cover-script{position:absolute;top:13%;left:0;right:0;z-index:3;pointer-events:none;
-    font-family:'Sacramento','Pretendard',cursive;color:#fff;line-height:.84;
-    text-shadow:0 3px 28px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.3)}
-  .cover-script span{display:block;font-weight:400}
-  .cover-script .cs1{font-size:clamp(40px,13vw,58px);transform:translateX(-15%)}
-  .cover-script .cs2{font-size:clamp(62px,22vw,98px);margin-top:-.05em}
-  .cover-script .cs3{font-size:clamp(44px,15vw,66px);transform:translateX(19%);margin-top:-.03em}
+    background:linear-gradient(180deg,rgba(20,16,13,.18) 0%,rgba(20,16,13,.05) 26%,rgba(20,16,13,.08) 55%,rgba(20,16,13,.32) 78%,rgba(20,16,13,.64) 100%)}
   .cover-info{position:relative;z-index:3;padding:0 30px 100px;color:#fff}
-  .cover-names{font-family:'Pretendard',sans-serif;font-size:18.5px;font-weight:500;letter-spacing:.08em;
-    text-shadow:0 2px 16px rgba(0,0,0,.45)}
-  .cover-names i{font-style:normal;color:rgba(255,255,255,.72);margin:0 6px;font-weight:300}
-  .cover-date{font-size:13.5px;letter-spacing:.16em;color:rgba(255,255,255,.9);margin-top:13px;
-    text-shadow:0 2px 14px rgba(0,0,0,.45)}
+  .cover-names{font-family:'Pretendard',sans-serif;font-size:15px;font-weight:300;letter-spacing:.12em;
+    text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .cover-names i{font-style:normal;color:rgba(255,255,255,.7);margin:0 5px;font-weight:200}
+  .cover-date{font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.85);margin-top:11px;font-weight:300;
+    text-shadow:0 1px 10px rgba(0,0,0,.5)}
 
   /* INVITATION */
   .invite{text-align:center}
@@ -375,11 +359,6 @@
   <section class="cover">
     <div class="cover-bg"></div>
     <div class="cover-veil"></div>
-    <div class="cover-script" aria-hidden="true">
-      <span class="cs1">and</span>
-      <span class="cs2">happily</span>
-      <span class="cs3">ever after</span>
-    </div>
     <div class="cover-info">
       <div class="cover-names">Hyungeun Oh <i>&amp;</i> Woojin Lee</div>
       <div class="cover-date">2026.10.24.SAT 13:00</div>
@@ -544,7 +523,7 @@
       </div>
     </div>
   </section>
-  <div class="footer">© 2026.10.24 · Hyungeun &amp; Woojin Wedding · DEMO</div>
+  <div class="footer">© 2026.10.24 · Hyungeun &amp; Woojin Wedding</div>
 </div>
 
 <!-- BGM (top-left, 레퍼런스 스타일) -->
@@ -901,20 +880,18 @@
     if(_nmSheet){naver.maps.Event.trigger(_nmSheet,'resize');_nmSheet.setCenter(new naver.maps.LatLng(VENUE.lat,VENUE.lng));return;}
     _nmSheet=makeNaverMap('naverMapSheet');}
 
-  /* 티맵 길안내 — iOS/Android 스킴 구분 + 미설치·데스크톱 폴백
-     기존 <a href="tmap://…"> 는 앱 미설치·PC에서 아무 반응 없어 동작 안 함 → JS로 처리 */
+  /* 티맵 길안내 — goalname/goalx/goaly 는 iOS·Android 공통 동작(정설).
+     이전 iOS rGoName 스킴이 안 열리던 원인 → 공통 파라미터로 통일 + Android referrer 추가 */
   function openTmap(){
     const name=encodeURIComponent(VENUE.name),x=VENUE.lng,y=VENUE.lat;
     const ua=navigator.userAgent||'';
     const isIOS=/iPhone|iPad|iPod/i.test(ua);
     const isAndroid=/Android/i.test(ua);
-    if(!isIOS&&!isAndroid){ /* 데스크톱: 티맵 앱 스킴 불가 → 카카오맵 길찾기 웹으로 */
-      window.open('https://map.kakao.com/link/to/'+name+','+y+','+x,'_blank','noopener');
+    if(!isIOS&&!isAndroid){ /* 데스크톱엔 티맵 앱이 없음 → 안내만 */
+      toast('티맵은 휴대폰 앱에서 열려요 · PC에선 네이버/카카오맵을 이용해 주세요');
       return;
     }
-    const scheme=isIOS
-      ? 'tmap://route?rGoName='+name+'&rGoX='+x+'&rGoY='+y
-      : 'tmap://route?goalname='+name+'&goalx='+x+'&goaly='+y;
+    const scheme='tmap://route?goalname='+name+'&goalx='+x+'&goaly='+y+(isAndroid?'&referrer=com.skt.Tmap':'');
     const store=isIOS
       ? 'https://apps.apple.com/kr/app/id431589174'
       : 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku';
@@ -931,6 +908,18 @@
   function closeLightbox(e){if(e&&e.target&&e.target.id==='lbImg')return;document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
   document.querySelectorAll('.gallery .gslide,.gallery .ph').forEach(el=>{
     el.addEventListener('click',()=>{const m=getComputedStyle(el).backgroundImage.match(/url\(["']?(.*?)["']?\)/);if(m&&m[1])openLightbox(m[1]);});});
+
+  /* PC 갤러리 캐러셀 가로 넘기기 — 마우스 드래그 + 세로휠→가로 (모바일 터치는 네이티브 유지) */
+  document.querySelectorAll('.gswipe').forEach(sw=>{
+    let down=false,startX=0,startL=0,moved=false;
+    sw.style.cursor='grab';
+    sw.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;moved=false;startX=e.clientX;startL=sw.scrollLeft;sw.style.cursor='grabbing';sw.setPointerCapture(e.pointerId);});
+    sw.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-startX;if(Math.abs(dx)>4)moved=true;sw.scrollLeft=startL-dx;});
+    const end=()=>{down=false;sw.style.cursor='grab';};
+    sw.addEventListener('pointerup',end);sw.addEventListener('pointercancel',end);
+    sw.addEventListener('click',e=>{if(moved){e.stopPropagation();e.preventDefault();}},true);
+    sw.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){sw.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
+  });
 
   /* 바텀시트 grab 핸들로 닫기 */
   {const g=document.querySelector('.sheet-grab');if(g)g.onclick=closeSheet;}
