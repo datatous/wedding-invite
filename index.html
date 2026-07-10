@@ -50,46 +50,41 @@
   .rv.in{opacity:1;transform:none;filter:none}
   @media (prefers-reduced-motion:reduce){.rv{transition:none;filter:none;transform:none;opacity:1}}
 
-  /* COVER intro word-effects (AOS-style fade-up + 자간 relax) — slow */
+  /* COVER intro (full-bleed hero) — cinematic slow fade + ken-burns */
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  @keyframes letterIn{from{opacity:0;letter-spacing:.4em}to{opacity:1;letter-spacing:.08em}}
-  .cover .cover-en,.cover .hero-names,.cover .cover-card,.cover .when,.cover .where,.cover .addr{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards}
-  .cover .cover-en{animation-delay:.1s}
-  .cover .hero-names{animation-delay:.25s}
-  .cover .cover-card{animation-delay:.55s}
-  .cover .when{animation-delay:1.1s}
-  .cover .where{animation-delay:1.24s}
-  .cover .addr{animation-delay:1.38s}
-  .cover .hero-names span{animation:letterIn 2.1s ease .4s both}
+  @keyframes coverZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+  @keyframes scriptIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:1.4s}
+  .cover .cover-script span{opacity:0;animation:scriptIn 1.5s cubic-bezier(.22,.61,.25,1) forwards}
+  .cover .cover-script .cs1{animation-delay:.55s}
+  .cover .cover-script .cs2{animation-delay:.92s}
+  .cover .cover-script .cs3{animation-delay:1.28s}
+  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-info,.cover .cover-script span{animation:none;opacity:1}}
   .btn-line{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--line);
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Pretendard',sans-serif;cursor:pointer}
 
-  /* COVER (salondeletter-style: photo card + watermark) — 심플·깔끔 */
-  .cover{padding:60px 30px 54px;text-align:center}
-  .cover-en{font-size:11.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--mut);padding-left:.36em;margin-bottom:16px}
-  .hero-names{display:flex;align-items:center;justify-content:center;gap:15px;margin-bottom:26px}
-  .hero-names span{font-family:'Pretendard',sans-serif;font-size:30px;font-weight:600;color:var(--ink);letter-spacing:.06em}
-  .hero-names .hh{color:var(--rose-d);font-size:20px;font-style:normal;line-height:1;font-weight:400}
-  .cover-card{position:relative;z-index:1;max-width:326px;margin:0 auto;background:#fff;
-    padding:13px 13px 15px;border-radius:5px;box-shadow:0 20px 46px rgba(84,72,60,.20),0 2px 8px rgba(84,72,60,.10)}
-  .cover-photo{width:100%;aspect-ratio:3/4;border-radius:2px;overflow:hidden;position:relative;
-    background:url(images/cover/cover.jpg) center/cover no-repeat #e7ddd3}
-  .cover-foot{position:relative;margin-top:36px;padding:26px 0 6px}
-  .cover-meta{position:relative;z-index:1}
-  /* Our Wedding 손글씨 divider — 스크롤 진입 시 좌→우로 '써지는' 효과 (script font + clip-path 리빌) */
-  .wm-divider{text-align:center;padding:48px 20px 40px;line-height:1}
-  .wm-divider.rv{opacity:1;transform:none;filter:none;transition:none} /* reveal 은 handwrite 가 담당 */
-  .wm-ink{display:inline-block;font-family:'Sacramento','Pretendard',cursive;font-weight:400;
-    font-size:clamp(42px,13vw,60px);line-height:1.05;letter-spacing:.01em;color:rgba(52,50,47,.22);white-space:nowrap;
-    -webkit-clip-path:polygon(0 -20%,0 -20%,-16% 120%,-16% 120%);clip-path:polygon(0 -20%,0 -20%,-16% 120%,-16% 120%)}
-  .wm-divider.in .wm-ink{animation:handwrite 2.6s cubic-bezier(.5,.1,.35,1) .12s forwards}
-  @keyframes handwrite{
-    0%{-webkit-clip-path:polygon(0 -20%,0 -20%,-16% 120%,-16% 120%);clip-path:polygon(0 -20%,0 -20%,-16% 120%,-16% 120%)}
-    100%{-webkit-clip-path:polygon(0 -20%,120% -20%,104% 120%,-16% 120%);clip-path:polygon(0 -20%,120% -20%,104% 120%,-16% 120%)}}
-  @media (prefers-reduced-motion:reduce){.wm-ink{-webkit-clip-path:none;clip-path:none;animation:none}}
-  .cover .when{font-family:'Pretendard',sans-serif;font-weight:600;font-size:18px;letter-spacing:.01em;color:var(--ink);white-space:nowrap}
-  .cover .where{font-size:16px;color:var(--rose-d);margin-top:12px;letter-spacing:.02em;font-weight:500}
-  .cover .addr{font-size:13.5px;color:var(--mut);margin-top:6px}
+  /* COVER (full-bleed photo + handwriting overlay) */
+  .cover{position:relative;height:100dvh;min-height:600px;padding:0;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-end;text-align:center}
+  .cover-bg{position:absolute;inset:0;z-index:0;
+    background:url(images/cover/cover.jpg) 50% 46%/cover no-repeat #2a2622;
+    animation:coverZoom 6.5s ease-out both}
+  /* 밝은 야외 사진 위 흰 글씨 가독성용 어둠 베일(상·하 강조) */
+  .cover-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(20,16,13,.42) 0%,rgba(20,16,13,.16) 30%,rgba(20,16,13,.20) 56%,rgba(20,16,13,.40) 78%,rgba(20,16,13,.70) 100%)}
+  .cover-script{position:absolute;top:13%;left:0;right:0;z-index:3;pointer-events:none;
+    font-family:'Sacramento','Pretendard',cursive;color:#fff;line-height:.84;
+    text-shadow:0 3px 28px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.3)}
+  .cover-script span{display:block;font-weight:400}
+  .cover-script .cs1{font-size:clamp(40px,13vw,58px);transform:translateX(-15%)}
+  .cover-script .cs2{font-size:clamp(62px,22vw,98px);margin-top:-.05em}
+  .cover-script .cs3{font-size:clamp(44px,15vw,66px);transform:translateX(19%);margin-top:-.03em}
+  .cover-info{position:relative;z-index:3;padding:0 30px 100px;color:#fff}
+  .cover-names{font-family:'Pretendard',sans-serif;font-size:18.5px;font-weight:500;letter-spacing:.08em;
+    text-shadow:0 2px 16px rgba(0,0,0,.45)}
+  .cover-names i{font-style:normal;color:rgba(255,255,255,.72);margin:0 6px;font-weight:300}
+  .cover-date{font-size:13.5px;letter-spacing:.16em;color:rgba(255,255,255,.9);margin-top:13px;
+    text-shadow:0 2px 14px rgba(0,0,0,.45)}
 
   /* INVITATION */
   .invite{text-align:center}
@@ -142,10 +137,13 @@
   .gslide{flex:0 0 78%;aspect-ratio:3/4;border-radius:8px;scroll-snap-align:center;background-size:cover}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
   .ph{aspect-ratio:1;border-radius:3px;background-size:cover}
-  .p1{background:url(images/gallery/g1.jpg) center/cover no-repeat #e7ddd3}.p2{background:url(images/gallery/g2.jpg) center/cover no-repeat #e7ddd3}
-  .p3{background:url(images/gallery/g3.jpg) center/cover no-repeat #e7ddd3}.p4{background:url(images/gallery/g4.jpg) center/cover no-repeat #e7ddd3}
-  .p5{background:url(images/gallery/g5.jpg) center/cover no-repeat #e7ddd3}.p6{background:url(images/gallery/g6.jpg) center/cover no-repeat #e7ddd3}
-  .p7{background:url(images/closing/closing.jpg) center/cover no-repeat #e7ddd3}
+  .g1{background:url(images/gallery/g1.jpg) center/cover no-repeat #e7ddd3}.g2{background:url(images/gallery/g2.jpg) center/cover no-repeat #e7ddd3}
+  .g3{background:url(images/gallery/g3.jpg) center/cover no-repeat #e7ddd3}.g4{background:url(images/gallery/g4.jpg) center/cover no-repeat #e7ddd3}
+  .g5{background:url(images/gallery/g5.jpg) center/cover no-repeat #e7ddd3}.g6{background:url(images/gallery/g6.jpg) center/cover no-repeat #e7ddd3}
+  .g7{background:url(images/gallery/g7.jpg) center/cover no-repeat #e7ddd3}.g8{background:url(images/gallery/g8.jpg) center/cover no-repeat #e7ddd3}
+  .g9{background:url(images/gallery/g9.jpg) center/cover no-repeat #e7ddd3}.g10{background:url(images/gallery/g10.jpg) center/cover no-repeat #e7ddd3}
+  .g11{background:url(images/gallery/g11.jpg) center/cover no-repeat #e7ddd3}.g12{background:url(images/gallery/g12.jpg) center/cover no-repeat #e7ddd3}
+  .g13{background:url(images/gallery/g13.jpg) center/cover no-repeat #e7ddd3}.g14{background:url(images/gallery/g14.jpg) center/cover no-repeat #e7ddd3}
   .gdots{color:var(--mut);font-size:12px;letter-spacing:.15em;margin-top:6px}
 
   /* CALENDAR */
@@ -373,22 +371,20 @@
 <body>
 <div class="frame">
 
-  <!-- COVER -->
+  <!-- COVER (full-bleed 사진 + 손글씨 오버레이) -->
   <section class="cover">
-    <div class="cover-en">The Wedding Day</div>
-    <div class="hero-names"><span>현근</span><i class="hh">♥</i><span>우진</span></div>
-    <div class="cover-card"><div class="cover-photo"></div></div>
-    <div class="cover-foot">
-      <div class="cover-meta">
-        <div class="when">2026년 10월 24일(토) 오후 1시</div>
-        <div class="where">대전 마리드엘 웨딩홀</div>
-        <div class="addr">대전광역시 서구 만년로 69, 6층</div>
-      </div>
+    <div class="cover-bg"></div>
+    <div class="cover-veil"></div>
+    <div class="cover-script" aria-hidden="true">
+      <span class="cs1">and</span>
+      <span class="cs2">happily</span>
+      <span class="cs3">ever after</span>
+    </div>
+    <div class="cover-info">
+      <div class="cover-names">Hyungeun Oh <i>&amp;</i> Woojin Lee</div>
+      <div class="cover-date">2026.10.24.SAT 13:00</div>
     </div>
   </section>
-
-  <!-- Our Wedding 손글씨 divider (커버·invitation 사이 빈 공간) -->
-  <div class="wm-divider rv" aria-hidden="true"><span class="wm-ink">Our Wedding</span></div>
 
   <!-- INVITATION -->
   <section id="invite" class="invite rv">
@@ -447,19 +443,14 @@
     <div class="label">Gallery</div>
     <h2 class="kr">우리의 사진</h2>
     <div class="gswipe">
-      <div class="gslide p1"></div><div class="gslide p2"></div><div class="gslide p3"></div><div class="gslide p4"></div>
+      <div class="gslide g1"></div><div class="gslide g2"></div><div class="gslide g3"></div><div class="gslide g4"></div><div class="gslide g5"></div>
     </div>
     <div class="gdots">← 옆으로 넘겨보세요 →</div>
     <div class="grid">
-      <div class="ph p2"></div><div class="ph p5"></div><div class="ph p6"></div>
-      <div class="ph p4"></div><div class="ph p1"></div><div class="ph p3"></div>
+      <div class="ph g6"></div><div class="ph g7"></div><div class="ph g8"></div>
+      <div class="ph g9"></div><div class="ph g10"></div><div class="ph g11"></div>
+      <div class="ph g12"></div><div class="ph g13"></div><div class="ph g14"></div>
     </div>
-    <div class="grid grid-more" id="galMore">
-      <div class="ph p7"></div><div class="ph p3"></div><div class="ph p5"></div>
-      <div class="ph p2"></div><div class="ph p6"></div><div class="ph p1"></div>
-      <div class="ph p4"></div><div class="ph p7"></div><div class="ph p2"></div>
-    </div>
-    <button class="btn-more" id="galMoreBtn" onclick="toggleGallery()">사진 더 보기 +</button>
   </section>
 
   <!-- CALENDAR -->
@@ -494,7 +485,7 @@
     <!-- 네이버 동적지도 (NCP Maps) -->
     <div class="map"><div id="naverMap"></div></div>
     <div class="nav-btns">
-      <a href="https://map.naver.com/p/search/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98" target="_blank" rel="noopener">네이버지도</a><a href="https://map.kakao.com/link/to/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98,36.36764,127.38069" target="_blank" rel="noopener">카카오맵</a><a href="tmap://route?goalname=%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98%20%EC%9B%A8%EB%94%A9%ED%99%80&goalx=127.38069&goaly=36.36764" rel="noopener">티맵</a>
+      <a href="https://map.naver.com/p/search/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98" target="_blank" rel="noopener">네이버지도</a><a href="https://map.kakao.com/link/to/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98,36.36764,127.38069" target="_blank" rel="noopener">카카오맵</a><a href="#" role="button" onclick="openTmap();return false;">티맵</a>
     </div>
     <div class="transit">
       <h4>🚗 자가용</h4><p><span class="dot">●</span> 내비게이션에 <b>"대전광역시 서구 만년로 69"</b> 검색</p>
@@ -645,7 +636,7 @@
       <div class="s-mapapps">
         <a href="https://map.naver.com/p/search/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98" target="_blank" rel="noopener">네이버지도</a>
         <a href="https://map.kakao.com/link/to/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98,36.36764,127.38069" target="_blank" rel="noopener">카카오맵</a>
-        <a href="tmap://route?goalname=%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98%20%EC%9B%A8%EB%94%A9%ED%99%80&goalx=127.38069&goaly=36.36764" rel="noopener">티맵</a>
+        <a href="#" role="button" onclick="openTmap();return false;">티맵</a>
       </div>
       <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 자가용 · 내비에 "만년로 69" 검색<br/>● 지하철 (약 30분) · 대전역 › 정부청사역 하차 3번 출구 › 도보 1.5km<br/>● 버스 · 서구보건소 하차 (606·705·102·604·318·918·104)</p>
     </div>
@@ -909,6 +900,31 @@
   function initSheetMap(){
     if(_nmSheet){naver.maps.Event.trigger(_nmSheet,'resize');_nmSheet.setCenter(new naver.maps.LatLng(VENUE.lat,VENUE.lng));return;}
     _nmSheet=makeNaverMap('naverMapSheet');}
+
+  /* 티맵 길안내 — iOS/Android 스킴 구분 + 미설치·데스크톱 폴백
+     기존 <a href="tmap://…"> 는 앱 미설치·PC에서 아무 반응 없어 동작 안 함 → JS로 처리 */
+  function openTmap(){
+    const name=encodeURIComponent(VENUE.name),x=VENUE.lng,y=VENUE.lat;
+    const ua=navigator.userAgent||'';
+    const isIOS=/iPhone|iPad|iPod/i.test(ua);
+    const isAndroid=/Android/i.test(ua);
+    if(!isIOS&&!isAndroid){ /* 데스크톱: 티맵 앱 스킴 불가 → 카카오맵 길찾기 웹으로 */
+      window.open('https://map.kakao.com/link/to/'+name+','+y+','+x,'_blank','noopener');
+      return;
+    }
+    const scheme=isIOS
+      ? 'tmap://route?rGoName='+name+'&rGoX='+x+'&rGoY='+y
+      : 'tmap://route?goalname='+name+'&goalx='+x+'&goaly='+y;
+    const store=isIOS
+      ? 'https://apps.apple.com/kr/app/id431589174'
+      : 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku';
+    let left=false;const onHide=()=>{left=true;};
+    document.addEventListener('visibilitychange',onHide,{once:true});
+    window.addEventListener('pagehide',onHide,{once:true});
+    setTimeout(()=>{document.removeEventListener('visibilitychange',onHide);
+      if(!left&&!document.hidden)location.href=store;},1500);
+    location.href=scheme;
+  }
 
   /* lightbox (사진 크게 보기) */
   function openLightbox(url){const lb=document.getElementById('lightbox');document.getElementById('lbImg').src=url;lb.classList.add('open');document.body.style.overflow='hidden';}
