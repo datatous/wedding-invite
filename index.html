@@ -18,10 +18,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<!-- 커버 전용: 영문 흘림(Alex Brush) + 명조(Playfair Display) -->
+<!-- 커버 전용: 얇은 흘림(Sacramento) + 명조(Playfair Display) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sacramento&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" />
 <style>
   :root{
     --bg:#f7f5f1; --bg-2:#f1efe9; --paper:#ffffff; --pink-bg:#f7efef;
@@ -66,17 +66,17 @@
   .cover-bg{position:absolute;inset:0;z-index:0;
     background:url(images/cover/cover.jpg) 50% 50%/cover no-repeat #2a2622;
     animation:coverZoom 6.5s ease-out both}
-  /* 상·중·하 어둠 베일(중앙 큰 스크립트 + 하단 이름 가독성) */
+  /* 상·중·하 어둠 베일(상단 얇은 스크립트 + 하단 이름 가독성) */
   .cover-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(14,12,10,.42) 0%,rgba(14,12,10,.20) 30%,rgba(14,12,10,.24) 50%,rgba(14,12,10,.28) 66%,rgba(14,12,10,.40) 82%,rgba(14,12,10,.68) 100%)}
-  /* 중앙 흘림 스크립트 (Alex Brush · 크게 · 화면 중앙) */
-  .cover-script{position:absolute;top:50%;left:0;right:0;z-index:3;pointer-events:none;text-align:center;color:#fff;
-    font-family:'Alex Brush',cursive;transform:translateY(-58%) rotate(-4deg);
-    text-shadow:0 3px 28px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.32)}
-  .cover-script span{display:block;line-height:.84}
-  .cover-script .l1{font-size:clamp(46px,15vw,66px);transform:translateX(-9%)}
-  .cover-script .l2{font-size:clamp(72px,25vw,104px)}
-  .cover-script .l3{font-size:clamp(50px,17vw,74px);transform:translateX(5%)}
+    background:linear-gradient(180deg,rgba(14,12,10,.50) 0%,rgba(14,12,10,.32) 24%,rgba(14,12,10,.20) 44%,rgba(14,12,10,.18) 60%,rgba(14,12,10,.34) 82%,rgba(14,12,10,.66) 100%)}
+  /* 상단 얇은 흘림 스크립트 (Sacramento · 크게 · 기울임) */
+  .cover-script{position:absolute;top:6%;left:0;right:0;z-index:3;pointer-events:none;text-align:center;color:#fff;
+    font-family:'Sacramento',cursive;font-weight:400;transform:rotate(-8deg);
+    text-shadow:0 2px 22px rgba(0,0,0,.42),0 1px 3px rgba(0,0,0,.3)}
+  .cover-script span{display:block;line-height:.9}
+  .cover-script .l1{font-size:clamp(56px,19vw,84px);transform:translateX(-9%)}
+  .cover-script .l2{font-size:clamp(90px,31vw,132px)}
+  .cover-script .l3{font-size:clamp(64px,22vw,94px);transform:translateX(6%)}
   .cover-info{position:relative;z-index:3;padding:0 30px 90px;color:#fff}
   .cover-names{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;letter-spacing:.05em;
     text-shadow:0 2px 16px rgba(0,0,0,.5)}
