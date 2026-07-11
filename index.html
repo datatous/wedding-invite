@@ -18,6 +18,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<!-- 커버 전용: 영문 흘림(Alex Brush) + 명조(Playfair Display) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" />
 <style>
   :root{
     --bg:#f7f5f1; --bg-2:#f1efe9; --paper:#ffffff; --pink-bg:#f7efef;
@@ -49,26 +53,36 @@
   /* COVER intro (full-bleed hero) — cinematic slow fade + ken-burns */
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @keyframes coverZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
-  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:.7s}
-  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-info{animation:none;opacity:1}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .cover .cover-script{opacity:0;animation:fadeIn 1.9s ease .35s forwards}
+  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:1.15s}
+  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-script,.cover .cover-info{animation:none;opacity:1}}
   .btn-line{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--line);
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Pretendard',sans-serif;cursor:pointer}
 
-  /* COVER (full-bleed photo + handwriting overlay) */
+  /* COVER (full-bleed photo + Alex Brush 스크립트 오버레이) */
   .cover{position:relative;height:100dvh;min-height:600px;padding:0;overflow:hidden;
     display:flex;flex-direction:column;justify-content:flex-end;text-align:center}
   .cover-bg{position:absolute;inset:0;z-index:0;
-    background:url(images/cover/cover.jpg) 50% 46%/cover no-repeat #2a2622;
+    background:url(images/cover/cover.jpg) 50% 50%/cover no-repeat #2a2622;
     animation:coverZoom 6.5s ease-out both}
-  /* 하단 이름 가독성용 그라디언트(상단은 사진 자연스럽게 밝게) */
+  /* 상·하 어둠 베일(중앙 스크립트 + 하단 이름 가독성) */
   .cover-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(20,16,13,.18) 0%,rgba(20,16,13,.05) 26%,rgba(20,16,13,.08) 55%,rgba(20,16,13,.32) 78%,rgba(20,16,13,.64) 100%)}
-  .cover-info{position:relative;z-index:3;padding:0 30px 100px;color:#fff}
-  .cover-names{font-family:'Pretendard',sans-serif;font-size:15px;font-weight:300;letter-spacing:.12em;
-    text-shadow:0 1px 12px rgba(0,0,0,.5)}
-  .cover-names i{font-style:normal;color:rgba(255,255,255,.7);margin:0 5px;font-weight:200}
-  .cover-date{font-size:12px;letter-spacing:.18em;color:rgba(255,255,255,.85);margin-top:11px;font-weight:300;
-    text-shadow:0 1px 10px rgba(0,0,0,.5)}
+    background:linear-gradient(180deg,rgba(14,12,10,.46) 0%,rgba(14,12,10,.14) 34%,rgba(14,12,10,.10) 58%,rgba(14,12,10,.36) 80%,rgba(14,12,10,.68) 100%)}
+  /* 중앙 흘림 스크립트 (Alex Brush · 살짝 기울임) */
+  .cover-script{position:absolute;top:12%;left:0;right:0;z-index:3;pointer-events:none;text-align:center;color:#fff;
+    font-family:'Alex Brush',cursive;transform:rotate(-4deg);
+    text-shadow:0 3px 24px rgba(0,0,0,.42),0 1px 4px rgba(0,0,0,.3)}
+  .cover-script span{display:block;line-height:.9}
+  .cover-script .l1{font-size:clamp(38px,13vw,58px);transform:translateX(-13%)}
+  .cover-script .l2{font-size:clamp(58px,21vw,92px)}
+  .cover-script .l3{font-size:clamp(42px,15vw,66px);transform:translateX(15%)}
+  .cover-info{position:relative;z-index:3;padding:0 30px 92px;color:#fff}
+  .cover-names{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;letter-spacing:.04em;
+    text-shadow:0 2px 16px rgba(0,0,0,.5)}
+  .cover-names i{font-style:normal;color:rgba(255,255,255,.72);margin:0 5px;font-weight:400}
+  .cover-date{font-family:'Playfair Display',serif;font-size:14px;letter-spacing:.07em;color:rgba(255,255,255,.9);margin-top:12px;
+    text-shadow:0 2px 12px rgba(0,0,0,.5)}
 
   /* INVITATION */
   .invite{text-align:center}
@@ -359,6 +373,7 @@
   <section class="cover">
     <div class="cover-bg"></div>
     <div class="cover-veil"></div>
+    <div class="cover-script" aria-hidden="true"><span class="l1">and</span><span class="l2">happily</span><span class="l3">ever after</span></div>
     <div class="cover-info">
       <div class="cover-names">Hyungeun Oh <i>&amp;</i> Woojin Lee</div>
       <div class="cover-date">2026.10.24.SAT 13:00</div>
