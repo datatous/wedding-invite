@@ -18,10 +18,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<!-- 커버 전용: 한글 명조(Nanum Myeongjo) -->
+<!-- 커버 전용: 얇은 사인체 흘림(Mrs Saint Delafield) + 명조(Playfair Display) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Playfair+Display:wght@400;500&display=swap" />
 <style>
   :root{
     --bg:#f7f5f1; --bg-2:#f1efe9; --paper:#ffffff; --pink-bg:#f7efef;
@@ -53,8 +53,10 @@
   /* COVER intro (full-bleed hero) — cinematic slow fade + ken-burns */
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   @keyframes coverZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
-  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:.6s}
-  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-info{animation:none;opacity:1}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .cover .cover-script{opacity:0;animation:fadeIn 1.8s ease .3s forwards}
+  .cover .cover-info{opacity:0;animation:fadeUp 1.8s cubic-bezier(.22,.61,.25,1) forwards;animation-delay:.95s}
+  @media (prefers-reduced-motion:reduce){.cover .cover-bg{animation:none}.cover .cover-script,.cover .cover-info{animation:none;opacity:1}}
   .btn-line{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid var(--line);
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Pretendard',sans-serif;cursor:pointer}
 
@@ -64,14 +66,23 @@
   .cover-bg{position:absolute;inset:0;z-index:0;
     background:url(images/cover/cover.jpg) 50% 50%/cover no-repeat #2a2622;
     animation:coverZoom 6.5s ease-out both}
-  /* 하단 이름 가독성용 그라디언트(상단은 사진 밝게) */
+  /* 스크립트 + 하단 이름 가독성용 베일 */
   .cover-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(10,9,8,.26) 0%,rgba(10,9,8,.05) 24%,rgba(10,9,8,.03) 52%,rgba(10,9,8,.24) 76%,rgba(10,9,8,.60) 100%)}
-  .cover-info{position:relative;z-index:3;padding:0 30px 88px;color:#fff}
-  .cover-names{font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:27px;letter-spacing:.1em;
+    background:linear-gradient(180deg,rgba(12,11,9,.34) 0%,rgba(12,11,9,.18) 28%,rgba(12,11,9,.18) 52%,rgba(12,11,9,.16) 66%,rgba(12,11,9,.32) 82%,rgba(12,11,9,.64) 100%)}
+  /* 레퍼런스 구도: and / happily / ever after — 얇은 사인체가 상단~중앙을 크게 가로지름 */
+  .cover-script{position:absolute;top:12%;left:0;right:0;z-index:3;pointer-events:none;text-align:center;color:#fff;
+    font-family:'Mrs Saint Delafield',cursive;font-weight:400;transform:rotate(-2deg);
+    text-shadow:0 2px 20px rgba(0,0,0,.45),0 1px 3px rgba(0,0,0,.3)}
+  .cover-script span{display:block;line-height:.92}
+  .cover-script .l1{font-size:clamp(50px,17vw,74px);transform:translateX(-17%)}
+  .cover-script .l2{font-size:clamp(84px,29vw,124px)}
+  .cover-script .l3{font-size:clamp(66px,23vw,98px);transform:translateX(3%)}
+  /* 가장 하단 이름·날짜 (레퍼런스 구도) */
+  .cover-info{position:relative;z-index:3;padding:0 26px 92px;color:#fff}
+  .cover-names{font-family:'Playfair Display',serif;font-weight:500;font-size:19px;letter-spacing:.03em;
     text-shadow:0 2px 16px rgba(0,0,0,.5)}
-  .cover-names i{font-style:normal;color:rgba(255,255,255,.72);margin:0 9px;font-weight:400}
-  .cover-date{font-family:'Nanum Myeongjo',serif;font-size:14.5px;font-weight:400;letter-spacing:.03em;color:rgba(255,255,255,.9);margin-top:15px;
+  .cover-names i{font-style:normal;color:rgba(255,255,255,.85);margin:0 5px;font-weight:400}
+  .cover-date{font-family:'Playfair Display',serif;font-size:14.5px;font-weight:400;letter-spacing:.06em;color:rgba(255,255,255,.92);margin-top:10px;
     text-shadow:0 2px 12px rgba(0,0,0,.5)}
 
   /* INVITATION */
@@ -363,9 +374,10 @@
   <section class="cover">
     <div class="cover-bg"></div>
     <div class="cover-veil"></div>
+    <div class="cover-script" aria-hidden="true"><span class="l1">and</span><span class="l2">happily</span><span class="l3">ever after</span></div>
     <div class="cover-info">
-      <div class="cover-names">오현근 <i>·</i> 이우진</div>
-      <div class="cover-date">2026년 10월 24일 토요일 오후 1시</div>
+      <div class="cover-names">Oh Hyungeun <i>&amp;</i> Lee Woojin</div>
+      <div class="cover-date">2026.10.24 1:00P.M.</div>
     </div>
   </section>
 
