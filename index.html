@@ -768,11 +768,11 @@
   renderGB();
 
   /* ===== BGM =====
-     기본: WebAudio로 잔잔한 피아노풍 아르페지오를 실시간 생성 (외부 음원/저작권 無, self-contained).
-     나중에 실제 음원을 쓰려면 BGM_URL에 mp3 링크를 넣으면 그것을 우선 재생한다. */
-  const BGM_URL='';
+     audio/bgm.mp3 = 직접 합성한 펠트 피아노 루프 (F-C/E-Dm-Bb, 68BPM, 56초, 저작권 無).
+     BGM_URL을 비우면 WebAudio 실시간 생성음(GenBGM)으로 폴백한다. */
+  const BGM_URL='audio/bgm.mp3';
   const bgmBtn=document.getElementById('bgm');
-  let bgmAudio=null,bgmOn=false;
+  let bgmAudio=null,bgmOn=false,bgmFade=null;
   const GenBGM=(function(){
     let ctx,master,timer,step=0,alive=false;
     const chords=[                 /* 따뜻한 진행: Cmaj7 · Em7 · Am7 · Fmaj7 */
@@ -823,8 +823,18 @@
   bgmBtn.onclick=function(){
     bgmOn=!bgmOn;
     if(BGM_URL){
-      if(!bgmAudio){bgmAudio=new Audio(BGM_URL);bgmAudio.loop=true;}
-      if(bgmOn){bgmAudio.play().catch(()=>{toast('재생 실패 — 음원 링크를 확인해 주세요');});}else{bgmAudio.pause();}
+      if(!bgmAudio){bgmAudio=new Audio(BGM_URL);bgmAudio.loop=true;bgmAudio.volume=0;}
+      /* 갑자기 커지지 않게 0.8초 페이드 인/아웃 */
+      if(bgmFade)clearInterval(bgmFade);
+      const target=bgmOn?0.55:0,stepv=(target-bgmAudio.volume)/16;
+      if(bgmOn)bgmAudio.play().catch(()=>{toast('재생 실패 — 음원 링크를 확인해 주세요');});
+      bgmFade=setInterval(()=>{
+        const v=bgmAudio.volume+stepv;
+        if((stepv>0&&v>=target)||(stepv<=0&&v<=target)){
+          bgmAudio.volume=target;clearInterval(bgmFade);bgmFade=null;
+          if(!bgmOn)bgmAudio.pause();
+        }else bgmAudio.volume=Math.min(1,Math.max(0,v));
+      },50);
     }else{
       if(bgmOn)GenBGM.start();else GenBGM.stop();
     }
