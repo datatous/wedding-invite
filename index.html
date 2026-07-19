@@ -768,9 +768,9 @@
   renderGB();
 
   /* ===== BGM =====
-     audio/bgm.mp3 = 직접 합성한 펠트 피아노 루프 (F-C/E-Dm-Bb, 68BPM, 56초, 저작권 無).
-     BGM_URL을 비우면 WebAudio 실시간 생성음(GenBGM)으로 폴백한다. */
-  const BGM_URL='audio/bgm.mp3';
+     BGM_URL을 비우면 WebAudio 실시간 생성음(GenBGM)으로 폴백한다 — 현재 이 모드.
+     실제 음원을 쓰려면 BGM_URL='audio/bgm.mp3' (직접 합성한 펠트 피아노 루프, 저작권 無)로 되돌리면 된다. */
+  const BGM_URL='';
   const bgmBtn=document.getElementById('bgm');
   let bgmAudio=null,bgmOn=false,bgmFade=null;
   const GenBGM=(function(){
