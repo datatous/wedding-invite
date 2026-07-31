@@ -212,6 +212,7 @@
   .gb-item .au{font-family:'Pretendard',sans-serif;font-size:15.5px;font-weight:700}
   .gb-item .dt{font-size:12px;color:var(--mut)}
   .gb-item .msg{font-size:15px;color:var(--ink-2);margin-top:6px;line-height:1.85}
+  .gb-empty{text-align:center;color:var(--mut);font-size:14.5px;line-height:1.9;padding:26px 10px 22px}
   .gb-form{display:flex;flex-direction:column;gap:10px;text-align:left}
   .gb-form input,.gb-form textarea{padding:14px;border:1px solid var(--line);border-radius:10px;font-size:15.5px;font-family:inherit;background:var(--paper)}
   .gb-form textarea{resize:none;height:78px}
@@ -764,22 +765,52 @@
     const open=t.classList.toggle('open');p.style.maxHeight=open?p.scrollHeight+'px':0;}
 
   /* guestbook (localStorage demo) */
+  /* 구글 시트(Apps Script 웹앱)에 저장 → 모든 하객이 같은 목록을 본다.
+     GB_URL 이 비어 있으면 예전처럼 이 브라우저에만 저장된다(폴백).
+     설치 방법: tools/guestbook.gs 참고 */
   const GB_KEY='wj_hg_guestbook_v2';
-  const seed=[
-    {a:'김민수',m:'결혼 진심으로 축하해! 행복하게 잘 살아~',d:'2026-10-01'},
-    {a:'박지영',m:'두 분 너무 잘 어울려요 ㅎㅎ 행복하세요!',d:'2026-10-02'},
-    {a:'이준호',m:'드디어 결혼하는구나! 평생 행복하자',d:'2026-10-03'}
-  ];
+  const GB_URL='https://script.google.com/macros/s/AKfycbzO0OkZBtpW_UgpUGbvWGYHMaL7_-CP-MjIFNLX_f32FtBWsCl2Vd1nXBqJP8Xn-7t2/exec';
+  const seed=[];   /* 예시 메시지 제거(2026-07-31) */
+  let gbBusy=false;
+
   function loadGB(){try{return JSON.parse(localStorage.getItem(GB_KEY))||seed}catch(e){return seed}}
-  function saveGB(arr){localStorage.setItem(GB_KEY,JSON.stringify(arr))}
-  function renderGB(){const arr=loadGB();const box=document.getElementById('gbList');
-    box.innerHTML=arr.slice().reverse().map(g=>`<div class="gb-item"><div class="top"><span class="au">${esc(g.a)}</span><span class="dt">${g.d}</span></div><div class="msg">${esc(g.m)}</div></div>`).join('');}
-  function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-  document.getElementById('gbForm').onsubmit=e=>{e.preventDefault();
-    const n=gbName.value.trim(),m=gbMsg.value.trim();if(!n||!m)return;
-    const arr=loadGB();arr.push({a:n,m:m,d:new Date().toISOString().slice(0,10)});saveGB(arr);
-    gbName.value='';gbMsg.value='';renderGB();toast('소중한 메시지 감사합니다 ♥');};
+  function saveGB(arr){try{localStorage.setItem(GB_KEY,JSON.stringify(arr))}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+  function renderGB(arr){
+    const box=document.getElementById('gbList');
+    arr=arr||loadGB();
+    if(!arr.length){box.innerHTML='<div class="gb-empty">아직 남겨진 메시지가 없어요.<br/>첫 축하 인사를 남겨주세요 ♥</div>';return;}
+    box.innerHTML=arr.slice().reverse().map(g=>`<div class="gb-item"><div class="top"><span class="au">${esc(g.a)}</span><span class="dt">${esc(g.d)}</span></div><div class="msg">${esc(g.m)}</div></div>`).join('');
+  }
+
+  /* 시트에서 전체 목록 받아오기 — 실패하면 직전 캐시를 그대로 둔다 */
+  function fetchGB(){
+    if(!GB_URL)return;
+    fetch(GB_URL).then(r=>r.json()).then(list=>{
+      if(Array.isArray(list)){saveGB(list);renderGB(list);}
+    }).catch(()=>{});
+  }
+
+  document.getElementById('gbForm').onsubmit=e=>{
+    e.preventDefault();
+    if(gbBusy)return;
+    const n=gbName.value.trim(),m=gbMsg.value.trim();
+    if(!n||!m)return;
+    gbBusy=true;
+    const entry={a:n,m:m,d:new Date().toISOString().slice(0,10)};
+    /* 먼저 화면에 반영(낙관적) → 전송 → 잠시 뒤 서버 목록으로 동기화 */
+    const arr=loadGB();arr.push(entry);saveGB(arr);renderGB(arr);
+    gbName.value='';gbMsg.value='';
+    toast('소중한 메시지 감사합니다 ♥');
+    if(GB_URL){
+      fetch(GB_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(entry)})
+        .catch(()=>{}).finally(()=>{setTimeout(fetchGB,1500);gbBusy=false;});
+    }else{gbBusy=false;}
+  };
+
   renderGB();
+  fetchGB();
 
   /* ===== BGM =====
      BGM_URL을 비우면 WebAudio 실시간 생성음(GenBGM)으로 폴백한다 — 현재 이 모드.
