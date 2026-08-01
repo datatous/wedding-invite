@@ -373,6 +373,7 @@
   .pop .pop-en{font-family:'Pretendard',sans-serif;font-style:italic;font-size:24px;color:var(--rose-d)}
   .pop .pop-kt{font-family:'Pretendard',sans-serif;font-size:19.5px;font-weight:700;margin-top:8px}
   .pop .pop-msg{font-size:15px;color:var(--ink-2);line-height:1.95;margin-top:14px}
+  .pop .pop-msg b{color:var(--ink);font-weight:600}
   .pop .pop-btns{display:flex;gap:8px;margin-top:22px}
   .pop .pop-btns button{flex:1;padding:14px 0;border-radius:10px;font-size:15px;font-family:'Pretendard',sans-serif;cursor:pointer;border:0}
   .pop .pop-yes{background:var(--rose);color:#fff}
@@ -575,7 +576,7 @@
     <div class="pop-top">
       <div class="pop-en">save the date</div>
       <div class="pop-kt">참석 여부 전달</div>
-      <div class="pop-msg">2026년 10월 24일 토요일 오후 1시<br/>오현근 ♥ 이우진의 결혼식에<br/>참석해 주시겠어요?</div>
+      <div class="pop-msg">2026년 10월 24일 토요일 오후 1시<br/><b>대전 마리드엘 웨딩홀</b><br/>오현근 ♥ 이우진의 결혼식에<br/>참석해 주시겠어요?</div>
       <div class="pop-btns">
         <button class="pop-yes" onclick="closePop();openSheet('rsvp')">참석 전달하기</button>
         <button class="pop-no" onclick="closePop()">나중에</button>
@@ -965,7 +966,7 @@
   function closePop(){popDim.classList.remove('open');}
   function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
   (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
-    if(d!==today)setTimeout(()=>popDim.classList.add('open'),1300);})();
+    if(d!==today)setTimeout(()=>popDim.classList.add('open'),1600);})();
 
   /* 네이버 지도 (NCP Maps) */
   const VENUE={lat:36.36764,lng:127.38069,name:'대전 마리드엘 웨딩홀'}; /* 만년로 69 (실측) */
