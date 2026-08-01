@@ -966,7 +966,15 @@
   function closePop(){popDim.classList.remove('open');}
   function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
   (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
-    if(d!==today)setTimeout(()=>popDim.classList.add('open'),1600);})();
+    if(d===today)return;
+    let done=false;
+    const open=()=>{if(done)return;done=true;popDim.classList.add('open');};
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){setTimeout(open,800);return;}
+    /* 커버 인트로 텍스트(이름·날짜 fadeUp = 0.95s 지연 + 1.8s)가 끝난 직후에 연다.
+       animationend에 물려두면 인트로 타이밍을 나중에 바꿔도 팝업이 알아서 따라온다. */
+    const info=document.querySelector('.cover-info');
+    if(info)info.addEventListener('animationend',()=>setTimeout(open,150),{once:true});
+    setTimeout(open,3200);})(); /* 이벤트를 못 받는 경우 폴백 */
 
   /* 네이버 지도 (NCP Maps) */
   const VENUE={lat:36.36764,lng:127.38069,name:'대전 마리드엘 웨딩홀'}; /* 만년로 69 (실측) */
