@@ -61,7 +61,9 @@
     border-radius:40px;background:var(--paper);color:var(--ink);font-size:14px;font-family:'Pretendard',sans-serif;cursor:pointer}
 
   /* COVER (full-bleed photo + Alex Brush 스크립트 오버레이) */
-  .cover{position:relative;height:100dvh;min-height:600px;padding:0;overflow:hidden;
+  /* height는 svh(주소창 펼친 상태 기준 고정). dvh는 첫 스크롤에 주소창이 접히며
+     높이가 바뀌어 리플로우가 일어나고, 그게 스크롤 시작 순간의 끊김으로 보인다. */
+  .cover{position:relative;height:100vh;height:100svh;min-height:600px;padding:0;overflow:hidden;
     display:flex;flex-direction:column;justify-content:flex-end;text-align:center}
   /* bgwrap = 스크롤 연동 줌인·패럴랙스 전용 (JS가 transform 제어), bg = 인트로 켄번스 */
   .cover-bgwrap{position:absolute;inset:0;z-index:0;will-change:transform;backface-visibility:hidden}
@@ -937,29 +939,33 @@
     const wrap=document.querySelector('.cover-bgwrap'),cover=document.querySelector('.cover');
     if(!wrap||!cover)return;
     if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    const EASE=.12,ZOOM=.17,SHIFT=.28; /* 따라오는 속도 / 최대 확대 / 패럴랙스 이동량 */
-    let cur=0,running=false;
+    const EASE=.18,ZOOM=.17,SHIFT=.28; /* 따라오는 속도 / 최대 확대 / 패럴랙스 이동량 */
+    /* 커버 높이는 한 번만 재고 가로폭이 바뀔 때(회전)만 갱신한다. 매 프레임 다시 재면
+       주소창 접힘으로 높이가 흔들릴 때 진행도·이동량이 같이 튀어 스크롤 시작이 끊겨 보인다. */
+    let H=cover.offsetHeight||1,W=innerWidth,cur=0,running=false;
     function frame(){
-      const h=cover.offsetHeight||1;
-      const target=Math.min(Math.max(window.scrollY/h,0),1);
+      const target=Math.min(Math.max(window.scrollY/H,0),1);
       const d=target-cur;
       cur=Math.abs(d)<.0005?target:cur+d*EASE;
-      wrap.style.transform='translate3d(0,'+(cur*h*SHIFT).toFixed(2)+'px,0) scale('+(1+cur*ZOOM).toFixed(4)+')';
+      wrap.style.transform='translate3d(0,'+(cur*H*SHIFT).toFixed(2)+'px,0) scale('+(1+cur*ZOOM).toFixed(4)+')';
       if(cur!==target)requestAnimationFrame(frame);else running=false;
     }
     function kick(){if(!running){running=true;requestAnimationFrame(frame);}}
     addEventListener('scroll',kick,{passive:true});
-    addEventListener('resize',kick,{passive:true});
+    addEventListener('resize',()=>{if(innerWidth!==W){W=innerWidth;H=cover.offsetHeight||1;}kick();},{passive:true});
+    /* 첫 스크롤에 합성 레이어를 새로 만드느라 한 프레임 튀는 걸 막으려고 미리 올려둔다 */
+    wrap.style.transform='translate3d(0,0,0) scale(1)';
     kick();
   })();
 
   /* entry RSVP popup (오늘 하루 보지 않기 = localStorage 당일) */
   const POP_KEY='wj_hg_pop_dismiss';const popDim=document.getElementById('popDim');
-  const today=new Date().toISOString().slice(0,10);
+  /* 로컬 날짜 기준. toISOString()은 UTC라 '오늘 하루'의 경계가 KST 09시가 돼버린다 */
+  const today=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
   function closePop(){popDim.classList.remove('open');}
   function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
   (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
-    if(d!==today)setTimeout(()=>popDim.classList.add('open'),1800);})();
+    if(d!==today)setTimeout(()=>popDim.classList.add('open'),1300);})();
 
   /* 네이버 지도 (NCP Maps) */
   const VENUE={lat:36.36764,lng:127.38069,name:'대전 마리드엘 웨딩홀'}; /* 만년로 69 (실측) */
