@@ -147,6 +147,7 @@
   .g9{background:url(images/gallery/g9.jpg) center/cover no-repeat #e7ddd3}.g10{background:url(images/gallery/g10.jpg) center/cover no-repeat #e7ddd3}
   .g11{background:url(images/gallery/g11.jpg) center/cover no-repeat #e7ddd3}.g12{background:url(images/gallery/g12.jpg) center/cover no-repeat #e7ddd3}
   .g13{background:url(images/gallery/g13.jpg) center/cover no-repeat #e7ddd3}.g14{background:url(images/gallery/g14.jpg) center/cover no-repeat #e7ddd3}
+  .g15{background:url(images/gallery/g15.jpg) center/cover no-repeat #e7ddd3}.g16{background:url(images/gallery/g16.jpg) center/cover no-repeat #e7ddd3}
   .gdots{color:var(--mut);font-size:12px;letter-spacing:.15em;margin-top:6px}
 
   /* CALENDAR */
@@ -457,13 +458,14 @@
     <div class="label">Gallery</div>
     <h2 class="kr">우리의 사진</h2>
     <div class="gswipe">
-      <div class="gslide g1"></div><div class="gslide g2"></div><div class="gslide g3"></div><div class="gslide g4"></div><div class="gslide g5"></div>
+      <div class="gslide g1"></div><div class="gslide g2"></div><div class="gslide g3"></div><div class="gslide g4"></div>
+      <div class="gslide g5"></div><div class="gslide g6"></div><div class="gslide g7"></div>
     </div>
     <div class="gdots">← 옆으로 넘겨보세요 →</div>
     <div class="grid">
-      <div class="ph g6"></div><div class="ph g7"></div><div class="ph g8"></div>
-      <div class="ph g9"></div><div class="ph g10"></div><div class="ph g11"></div>
-      <div class="ph g12"></div><div class="ph g13"></div><div class="ph g14"></div>
+      <div class="ph g8"></div><div class="ph g9"></div><div class="ph g10"></div>
+      <div class="ph g11"></div><div class="ph g12"></div><div class="ph g13"></div>
+      <div class="ph g14"></div><div class="ph g15"></div><div class="ph g16"></div>
     </div>
   </section>
 
@@ -1016,7 +1018,7 @@
     location.href=scheme;
   }
 
-  /* lightbox (사진 크게 보기) — 캐러셀 5장 + 아래 그리드 9장을 한 묶음으로 좌우 넘기기 */
+  /* lightbox (사진 크게 보기) — 캐러셀 7장 + 아래 그리드 9장을 한 묶음으로 좌우 넘기기 */
   const lbEl=document.getElementById('lightbox');
   const galEls=[...document.querySelectorAll('.gallery .gslide,.gallery .ph')];
   let LBSRC=[],lbIdx=0,lbSwiped=false;
