@@ -333,6 +333,12 @@
   .rf-agree{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);line-height:1.7;cursor:pointer;margin-top:2px}
   .rf-agree input{margin-top:2px;flex:0 0 auto;width:18px;height:18px;accent-color:var(--rose-d)}
   .rf-agree b{color:var(--rose-d)}.rf-agree i{font-style:normal;color:var(--mut);font-size:12px}
+  .rf-check{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:10px;
+    background:var(--paper);font-size:14.5px;color:var(--ink);line-height:1.6;cursor:pointer;transition:background .15s,border-color .15s}
+  .rf-check input{margin-top:1px;flex:0 0 auto;width:18px;height:18px;accent-color:var(--rose-d)}
+  .rf-check:has(input:checked){background:var(--pink-bg);border-color:var(--rose)}
+  .rf-note{margin:0;padding-left:2px;font-size:12.5px;color:var(--mut);line-height:1.75;letter-spacing:-.01em}
+  .rf-note b{color:var(--rose-d);font-weight:700}
   .rf-done{text-align:center;padding:34px 12px}
   .rf-done .big{font-family:'Pretendard',sans-serif;font-size:21px;color:var(--rose-d);margin-bottom:10px;line-height:1.5}
   .rf-done .sub{font-size:14.5px;color:var(--ink-2);line-height:1.95}
@@ -700,6 +706,11 @@
             <option value="4">4명</option><option value="5">5명</option><option value="6">6명</option>
             <option value="7">7명</option><option value="8">8명</option><option value="9">9명</option>
           </select>
+        </div>
+        <div class="rf-group" id="rfShuttleWrap">
+          <label class="rf-label">대전역 셔틀버스</label>
+          <label class="rf-check"><input type="checkbox" id="rfShuttle"><span>대전역 셔틀버스 탑승을 희망합니다</span></label>
+          <p class="rf-note">* 대전역에서 <b>12시경 출발</b>을 예상하고 있습니다. 정확한 시간과 탑승 장소는 확정되는 대로 안내드릴게요.</p>
         </div>
         <label class="rf-agree"><input type="checkbox" id="rfAgree"><span>개인정보 수집·이용에 동의합니다 <b>(필수)</b><br/><i>· 수집항목: 성함·연락처·참석정보 / 목적: 예식 참석 집계 / 보유: 예식 후 파기</i></span></label>
         <button class="btn-fill" type="submit" style="width:100%;margin-top:4px">참석 여부 전달하기</button>
@@ -1069,10 +1080,14 @@
   (function(){
     const form=document.getElementById('rsvpForm');if(!form)return;
     const compWrap=document.getElementById('rfCompWrap');
-    function syncAttend(){const a=form.querySelector('input[name=attend]:checked').value;compWrap.style.display=(a==='참석')?'':'none';}
+    const shuttleWrap=document.getElementById('rfShuttleWrap');
+    function syncAttend(){const a=form.querySelector('input[name=attend]:checked').value;const on=(a==='참석')?'':'none';compWrap.style.display=on;if(shuttleWrap)shuttleWrap.style.display=on;}
     form.querySelectorAll('input[name=attend]').forEach(r=>r.addEventListener('change',syncAttend));syncAttend();
+    const sendBtn=form.querySelector('button[type=submit]');
+    let sending=false; /* 중복 전송 방지 — 더블탭·엔터+클릭으로 시트에 2행 들어가던 문제 */
     form.addEventListener('submit',async e=>{
       e.preventDefault();
+      if(sending)return;
       const attend=form.querySelector('input[name=attend]:checked').value;
       const side=form.querySelector('input[name=side]:checked').value;
       const name=document.getElementById('rfName').value.trim();
@@ -1084,15 +1099,21 @@
       if(!document.getElementById('rfAgree').checked){toast('개인정보 수집·이용에 동의해 주세요 (필수)');return;}
       const comp=(attend==='참석')?parseInt(document.getElementById('rfComp').value||'0',10):0;
       const total=(attend==='참석')?comp+1:0;
-      const rec={attend,side,name,phone,companions:comp,total,ts:new Date().toISOString()};
+      const shuttle=(attend==='참석')&&document.getElementById('rfShuttle').checked;
+      sending=true;if(sendBtn){sendBtn.disabled=true;sendBtn.style.opacity='.6';sendBtn.textContent='전달 중…';}
+      /* uid = 전송 1건의 고유키. 시트에서 중복 행을 걸러낼 수 있게 함께 보낸다 */
+      const uid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2,10));
+      const rec={uid,attend,side,name,phone,companions:comp,total,shuttle:shuttle?'희망':'',ts:new Date().toISOString()};
       try{const K='wj_hg_rsvp';const arr=JSON.parse(localStorage.getItem(K)||'[]');arr.push(rec);localStorage.setItem(K,JSON.stringify(arr));}catch(_){}
-      if(RSVP_ENDPOINT){try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});}catch(_){}}
+      /* 완료 화면을 먼저 띄운다 — 네트워크를 기다리는 사이 두 번째 탭이 들어오는 것을 막는다 */
       const done=document.getElementById('rfDone');
       done.innerHTML=(attend==='참석')
-        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}<br/>소중한 걸음 미리 감사드립니다.</div>`
+        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}${shuttle?'<br/>대전역 셔틀버스 탑승 희망 (12시경 출발 예정)':''}<br/>소중한 걸음 미리 감사드립니다.</div>`
         :`<div class="big">참석이 어려우시군요</div><div class="sub">${side} · ${name}<br/>마음 전해주셔서 감사합니다.</div>`;
       form.style.display='none';done.hidden=false;
-      toast('참석 여부가 전달되었습니다');});
+      toast('참석 여부가 전달되었습니다');
+      if(RSVP_ENDPOINT){try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});}catch(_){}}
+    });
   })();
 
   /* toast */
