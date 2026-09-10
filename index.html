@@ -514,11 +514,18 @@
       <h4>🚈 지하철 <span class="hm">(약 30분 소요)</span></h4><p><span class="dot">●</span> 대전역 <span class="rt">›</span> 정부청사역 하차 3번 출구 <span class="rt">›</span> 도보 1.5km</p>
       <h4>🚌 버스</h4><p><span class="dot">●</span> <b>서구보건소</b> 정류장 하차<br/><span class="dot">●</span> 대전역 606·705 / 복합터미널 102 / 정부청사 604·318·918 / 유성터미널 104</p>
     </div>
-    <!-- 셔틀버스 (추후 안내 예정) -->
+    <!-- 셔틀버스 -->
     <div class="charter">
       <div class="charter-h">🚌 셔틀버스 안내</div>
-      <p class="charter-sub">멀리서 오시는 분들을 위해<br/><b>대전역</b>에서 셔틀버스를 준비할 예정입니다.</p>
-      <p class="charter-note" style="text-align:center">구체적인 시간과 탑승 장소는 빠른 시일 내 업데이트 예정입니다.</p>
+      <p class="charter-sub">멀리서 오시는 분들을 위해<br/><b>대전역</b>에서 셔틀버스를 운행합니다.</p>
+      <div class="bus-card">
+        <div class="bus-no">대전역 → 마리드엘 웨딩홀</div>
+        <ul>
+          <li><b>탑승</b><span>대전역 <b>동광장(뒤쪽)</b></span></li>
+          <li><b>출발</b><span><b>12시</b> 출발</span></li>
+        </ul>
+      </div>
+      <p class="charter-note">※ 원활한 인원 체크를 위해 <b>참석 여부 전달 시 셔틀버스 탑승 여부를 꼭 체크</b>해 주세요.<br/>출발 시간에 맞춰 미리 도착해 주시면 감사하겠습니다.</p>
     </div>
   </section>
 
@@ -660,7 +667,7 @@
         <a href="https://map.kakao.com/link/to/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98,36.36764,127.38069" target="_blank" rel="noopener">카카오맵</a>
         <a href="#" role="button" onclick="openTmap();return false;">티맵</a>
       </div>
-      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 자가용 · 내비에 "만년로 69" 검색<br/>● 지하철 (약 30분) · 대전역 › 정부청사역 하차 3번 출구 › 도보 1.5km<br/>● 버스 · 서구보건소 하차 (606·705·102·604·318·918·104)<br/>● 셔틀버스 · 대전역에서 운행 예정 (시간·탑승 장소 추후 안내)</p>
+      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 자가용 · 내비에 "만년로 69" 검색<br/>● 지하철 (약 30분) · 대전역 › 정부청사역 하차 3번 출구 › 도보 1.5km<br/>● 버스 · 서구보건소 하차 (606·705·102·604·318·918·104)<br/>● 셔틀버스 · 대전역 동광장(뒤쪽) 12시 출발 (참석 여부 전달 시 탑승 체크 필수)</p>
     </div>
     <!-- 마음 전하실 곳 -->
     <div class="blk" id="t-heart">
@@ -710,7 +717,7 @@
         <div class="rf-group" id="rfShuttleWrap">
           <label class="rf-label">대전역 셔틀버스</label>
           <label class="rf-check"><input type="checkbox" id="rfShuttle"><span>대전역 셔틀버스 탑승을 희망합니다</span></label>
-          <p class="rf-note">* 대전역에서 <b>12시경 출발</b>을 예상하고 있습니다. 정확한 시간과 탑승 장소는 확정되는 대로 안내드릴게요.</p>
+          <p class="rf-note">* <b>대전역 동광장(뒤쪽)</b>에서 <b>12시 출발</b>합니다. 원활한 인원 체크를 위해 탑승하실 분은 꼭 체크해 주세요.</p>
         </div>
         <label class="rf-agree"><input type="checkbox" id="rfAgree"><span>개인정보 수집·이용에 동의합니다 <b>(필수)</b><br/><i>· 수집항목: 성함·연락처·참석정보 / 목적: 예식 참석 집계 / 보유: 예식 후 파기</i></span></label>
         <button class="btn-fill" type="submit" style="width:100%;margin-top:4px">참석 여부 전달하기</button>
@@ -1108,7 +1115,7 @@
       /* 완료 화면을 먼저 띄운다 — 네트워크를 기다리는 사이 두 번째 탭이 들어오는 것을 막는다 */
       const done=document.getElementById('rfDone');
       done.innerHTML=(attend==='참석')
-        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}${shuttle?'<br/>대전역 셔틀버스 탑승 희망 (12시경 출발 예정)':''}<br/>소중한 걸음 미리 감사드립니다.</div>`
+        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}${shuttle?'<br/>대전역 셔틀버스 탑승 희망 (동광장 뒤쪽 · 12시 출발)':''}<br/>소중한 걸음 미리 감사드립니다.</div>`
         :`<div class="big">참석이 어려우시군요</div><div class="sub">${side} · ${name}<br/>마음 전해주셔서 감사합니다.</div>`;
       form.style.display='none';done.hidden=false;
       toast('참석 여부가 전달되었습니다');
