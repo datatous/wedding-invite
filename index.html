@@ -196,7 +196,10 @@
   .bus-card ul{list-style:none;display:flex;flex-direction:column;gap:7px}
   .bus-card li{font-size:14.5px;color:var(--ink-2);line-height:1.6;display:flex;gap:8px}
   .bus-card li b{flex:0 0 46px;color:var(--ink);font-weight:700}
+  .bus-card li em{font-style:normal;font-size:12.5px;color:var(--mut)}
+  .bus-card li a{color:var(--rose-d);font-weight:700;text-decoration:none}
   .charter-note{text-align:left;font-size:12.5px;color:var(--mut);line-height:1.9;margin-top:14px}
+  .charter-btn{width:100%;margin-top:14px}
 
   /* INFORMATION cards */
   .info{text-align:center;background:var(--bg-2)}
@@ -514,11 +517,14 @@
       <div class="bus-card">
         <div class="bus-no">대전역 → 마리드엘 웨딩홀</div>
         <ul>
+          <li><b>일시</b><span>10월 24일(토) <b>12시 정각</b> 출발<br/><em>10분 전 도착 권장</em></span></li>
           <li><b>탑승</b><span>대전역 <b>동광장(뒤쪽)</b></span></li>
-          <li><b>출발</b><span><b>12시</b> 출발</span></li>
+          <li><b>도착</b><span>대전 마리드엘 웨딩홀</span></li>
+          <li><b>문의</b><span><a href="tel:01053571672">010-5357-1672</a><br/><em>신랑측 동생 · 탑승 지원</em></span></li>
         </ul>
       </div>
-      <p class="charter-note">※ 원활한 인원 체크를 위해 <b>참석 여부 전달 시 셔틀버스 탑승 여부를 꼭 체크</b>해 주세요.<br/>출발 시간에 맞춰 미리 도착해 주시면 감사하겠습니다.</p>
+      <p class="charter-note">※ 버스 탑승 여부가 바뀌었거나 새로 탑승을 원하시는 분은 <b>참석 여부에서 셔틀버스 탑승 여부를 꼭 체크</b>해 주세요.<br/>이미 전달하셨더라도 다시 전달해 주시면 됩니다.</p>
+      <button class="btn-fill charter-btn" type="button" onclick="openSheet('rsvp')">참석 여부 바로가기</button>
     </div>
   </section>
 
@@ -657,7 +663,7 @@
         <a href="https://map.kakao.com/link/to/%EB%8C%80%EC%A0%84%20%EB%A7%88%EB%A6%AC%EB%93%9C%EC%97%98,36.36764,127.38069" target="_blank" rel="noopener">카카오맵</a>
         <a href="#" role="button" onclick="openTmap();return false;">티맵</a>
       </div>
-      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 자가용 · 내비에 "만년로 69" 검색<br/>● 지하철 (약 30분) · 대전역 › 정부청사역 하차 3번 출구 › 도보 1.5km<br/>● 버스 · 서구보건소 하차 (606·705·102·604·318·918·104)<br/>● 셔틀버스 · 대전역 동광장(뒤쪽) 12시 출발 (참석 여부 전달 시 탑승 체크 필수)</p>
+      <p class="msg" style="font-size:13px;text-align:left;margin-top:18px">● 자가용 · 내비에 "만년로 69" 검색<br/>● 지하철 (약 30분) · 대전역 › 정부청사역 하차 3번 출구 › 도보 1.5km<br/>● 버스 · 서구보건소 하차 (606·705·102·604·318·918·104)<br/>● 셔틀버스 · 대전역 동광장(뒤쪽) 12시 정각 출발, 10분 전 도착 권장 (참석 여부 전달 시 탑승 체크 필수 · 탑승 지원 010-5357-1672)</p>
     </div>
     <!-- 마음 전하실 곳 -->
     <div class="blk" id="t-heart">
@@ -707,7 +713,7 @@
         <div class="rf-group" id="rfShuttleWrap">
           <label class="rf-label">대전역 셔틀버스</label>
           <label class="rf-check"><input type="checkbox" id="rfShuttle"><span>대전역 셔틀버스 탑승을 희망합니다</span></label>
-          <p class="rf-note">* <b>대전역 동광장(뒤쪽)</b>에서 <b>12시 출발</b>합니다. 원활한 인원 체크를 위해 탑승하실 분은 꼭 체크해 주세요.</p>
+          <p class="rf-note">* <b>대전역 동광장(뒤쪽)</b>에서 <b>12시 정각</b>에 출발합니다(10분 전 도착 권장). 이미 전달하셨더라도 탑승 여부가 바뀌었다면 다시 전달해 주세요.</p>
         </div>
         <label class="rf-agree"><input type="checkbox" id="rfAgree"><span>개인정보 수집·이용에 동의합니다 <b>(필수)</b><br/><i>· 수집항목: 성함·연락처·참석정보 / 목적: 예식 참석 집계 / 보유: 예식 후 파기</i></span></label>
         <button class="btn-fill" type="submit" style="width:100%;margin-top:4px">참석 여부 전달하기</button>
@@ -902,7 +908,10 @@
   const today=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
   function closePop(){popDim.classList.remove('open');}
   function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
-  (function(){let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
+  (function(){
+    /* 딥링크 (#rsvp) — 셔틀 안내 메시지의 '참석 여부 바로가기'. 팝업 없이 폼으로 바로 연다 */
+    if(/(^|[#?&])rsvp\b/i.test(location.hash+location.search)){setTimeout(()=>openSheet('rsvp'),400);return;}
+    let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
     if(d===today)return;
     let done=false;
     const open=()=>{if(done)return;done=true;popDim.classList.add('open');};
@@ -1031,7 +1040,7 @@
       /* 완료 화면을 먼저 띄운다 — 네트워크를 기다리는 사이 두 번째 탭이 들어오는 것을 막는다 */
       const done=document.getElementById('rfDone');
       done.innerHTML=(attend==='참석')
-        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}${shuttle?'<br/>대전역 셔틀버스 탑승 희망 (동광장 뒤쪽 · 12시 출발)':''}<br/>소중한 걸음 미리 감사드립니다.</div>`
+        ?`<div class="big">총 ${total}명 참석으로<br/>전달되었습니다 ♥</div><div class="sub">${side} · ${name}${shuttle?'<br/>대전역 셔틀버스 탑승 희망 (동광장 뒤쪽 · 12시 정각 출발)':''}<br/>소중한 걸음 미리 감사드립니다.</div>`
         :`<div class="big">참석이 어려우시군요</div><div class="sub">${side} · ${name}<br/>마음 전해주셔서 감사합니다.</div>`;
       form.style.display='none';done.hidden=false;
       toast('참석 여부가 전달되었습니다');
