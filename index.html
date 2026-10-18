@@ -366,23 +366,22 @@
     background:rgba(24,19,17,.5);padding:4px 12px;border-radius:20px}
   .lb .lb-x:focus-visible,.lb .lb-nav:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-  /* ENTRY RSVP POPUP */
-  .pop-dim{position:fixed;inset:0;background:rgba(40,35,30,.55);z-index:110;display:none;align-items:center;justify-content:center;padding:24px}
-  .pop-dim.open{display:flex}
-  .pop{width:100%;max-width:330px;background:var(--paper);border-radius:18px;overflow:hidden;text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,.3);animation:popin .4s cubic-bezier(.2,.8,.3,1)}
-  @keyframes popin{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
-  .pop .pop-top{padding:34px 26px 26px}
-  .pop .pop-en{font-family:'Pretendard',sans-serif;font-style:italic;font-size:24px;color:var(--rose-d)}
-  .pop .pop-kt{font-family:'Pretendard',sans-serif;font-size:19.5px;font-weight:700;margin-top:8px}
-  .pop .pop-msg{font-size:15px;color:var(--ink-2);line-height:1.95;margin-top:14px}
-  .pop .pop-msg b{color:var(--ink);font-weight:600}
-  .pop .pop-btns{display:flex;gap:8px;margin-top:22px}
-  .pop .pop-btns button{flex:1;padding:14px 0;border-radius:10px;font-size:15px;font-family:'Pretendard',sans-serif;cursor:pointer;border:0}
-  .pop .pop-yes{background:var(--rose);color:#fff}
-  .pop .pop-no{background:var(--bg-2);color:var(--ink-2)}
-  .pop .pop-foot{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--mut)}
-  .pop .pop-foot button{background:none;border:0;color:var(--mut);font-size:13px;cursor:pointer}
+  /* SHUTTLE NOTICE CHIP — 입장 팝업 대신 우상단에 작게. 화면을 가리지 않고 셔틀 안내로 데려간다 */
+  .notice-chip{position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(50% - 215px + 12px);z-index:55;
+    display:flex;align-items:center;gap:5px;padding:7px 12px 7px 10px;border-radius:999px;
+    background:rgba(255,253,250,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--line);
+    box-shadow:0 4px 14px rgba(56,55,55,.16);font-family:'Pretendard',sans-serif;font-size:12.5px;font-weight:600;color:var(--ink);
+    cursor:pointer;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.3,1)}
+  @media(max-width:430px){.notice-chip{right:12px}}
+  .notice-chip.show{opacity:1;transform:none;pointer-events:auto}
+  .notice-chip:focus-visible{outline:2px solid var(--rose-d);outline-offset:2px}
+  /* 새 소식 점 — 나타날 때 두 번만 번지고 멈춘다 */
+  .notice-chip::after{content:'';position:absolute;top:-2px;right:-1px;width:8px;height:8px;border-radius:50%;background:var(--rose-d);box-shadow:0 0 0 2px var(--paper)}
+  .notice-chip.show::after{animation:ncPing 1.6s ease-out .5s 2}
+  @keyframes ncPing{from{box-shadow:0 0 0 2px var(--paper),0 0 0 2px rgba(187,114,115,.5)}to{box-shadow:0 0 0 2px var(--paper),0 0 0 11px rgba(187,114,115,0)}}
+  .bus-card{transition:box-shadow .45s ease}
+  .bus-card.hl{box-shadow:0 0 0 2px var(--rose)}
+  @media (prefers-reduced-motion:reduce){.notice-chip{transition:none}.notice-chip.show::after{animation:none}}
 
   .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fbf9f6;padding:12px 22px;border-radius:30px;font-size:13px;opacity:0;transition:.3s;z-index:130;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -581,24 +580,8 @@
   <button class="fab" onclick="shareInvite()" title="공유하기">🔗</button>
 </div>
 
-<!-- ENTRY RSVP POPUP -->
-<div class="pop-dim" id="popDim">
-  <div class="pop">
-    <div class="pop-top">
-      <div class="pop-en">save the date</div>
-      <div class="pop-kt">참석 여부 전달</div>
-      <div class="pop-msg"><b>2026년 10월 24일 토요일 오후 1시</b><br/>대전 마리드엘 웨딩홀<br/>오현근 ♥ 이우진의 결혼식에<br/>참석해 주시겠어요?</div>
-      <div class="pop-btns">
-        <button class="pop-yes" onclick="closePop();openSheet('rsvp')">참석 전달하기</button>
-        <button class="pop-no" onclick="closePop()">나중에</button>
-      </div>
-    </div>
-    <div class="pop-foot">
-      <button onclick="dismissPopToday()">오늘 하루 보지 않기</button>
-      <button onclick="closePop()">닫기 ✕</button>
-    </div>
-  </div>
-</div>
+<!-- SHUTTLE NOTICE CHIP (입장 팝업 대체) -->
+<button class="notice-chip" id="noticeChip" type="button"><span aria-hidden="true">🚌</span>셔틀버스 안내</button>
 
 <!-- BOTTOM NAV -->
 <nav class="bottomnav">
@@ -902,25 +885,29 @@
     kick();
   })();
 
-  /* entry RSVP popup (오늘 하루 보지 않기 = localStorage 당일) */
-  const POP_KEY='wj_hg_pop_dismiss';const popDim=document.getElementById('popDim');
-  /* 로컬 날짜 기준. toISOString()은 UTC라 '오늘 하루'의 경계가 KST 09시가 돼버린다 */
-  const today=(d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))(new Date());
-  function closePop(){popDim.classList.remove('open');}
-  function dismissPopToday(){try{localStorage.setItem(POP_KEY,today);}catch(e){}closePop();}
+  /* 딥링크 (#rsvp) — 셔틀 안내 메시지의 '참석 여부 바로가기'. 참석 여부 폼을 바로 연다 */
+  if(/(^|[#?&])rsvp/i.test(location.hash+location.search))setTimeout(()=>openSheet('rsvp'),400);
+
+  /* 셔틀 안내 칩 — 입장 팝업 대신. 누르면 셔틀 안내로 스크롤하고, 안내가 화면에 보이는 동안은 숨는다 */
   (function(){
-    /* 딥링크 (#rsvp) — 셔틀 안내 메시지의 '참석 여부 바로가기'. 팝업 없이 폼으로 바로 연다 */
-    if(/(^|[#?&])rsvp\b/i.test(location.hash+location.search)){setTimeout(()=>openSheet('rsvp'),400);return;}
-    let d='';try{d=localStorage.getItem(POP_KEY);}catch(e){}
-    if(d===today)return;
-    let done=false;
-    const open=()=>{if(done)return;done=true;popDim.classList.add('open');};
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){setTimeout(open,800);return;}
-    /* 커버 인트로 텍스트(이름·날짜 fadeUp = 0.95s 지연 + 1.8s)가 끝난 직후에 연다.
-       animationend에 물려두면 인트로 타이밍을 나중에 바꿔도 팝업이 알아서 따라온다. */
+    const chip=document.getElementById('noticeChip'),target=document.querySelector('.charter');if(!chip||!target)return;
+    const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    let ready=false,inView=false;
+    const sync=()=>chip.classList.toggle('show',ready&&!inView);
+    const reveal=()=>{if(ready)return;ready=true;sync();};
+    chip.onclick=()=>{
+      /* offsetTop 합산 — .rv 섹션은 나타나기 전 translateY 상태라 getBoundingClientRect로 재면 42px 밀린다 */
+      let y=0;for(let el=target;el;el=el.offsetParent)y+=el.offsetTop;
+      window.scrollTo({top:y-16,behavior:reduce?'auto':'smooth'});
+      const card=target.querySelector('.bus-card');
+      if(card)setTimeout(()=>{card.classList.add('hl');setTimeout(()=>card.classList.remove('hl'),1600);},reduce?0:700);
+    };
+    new IntersectionObserver(es=>{inView=es[0].isIntersecting;sync();},{threshold:.2}).observe(target);
+    if(reduce){setTimeout(reveal,800);return;}
+    /* 커버 인트로 텍스트(이름·날짜 fadeUp)가 끝난 직후에 띄운다 */
     const info=document.querySelector('.cover-info');
-    if(info)info.addEventListener('animationend',()=>setTimeout(open,150),{once:true});
-    setTimeout(open,3200);})(); /* 이벤트를 못 받는 경우 폴백 */
+    if(info)info.addEventListener('animationend',()=>setTimeout(reveal,150),{once:true});
+    setTimeout(reveal,3200);})(); /* 이벤트를 못 받는 경우 폴백 */
 
   /* 네이버 지도 (NCP Maps) */
   const VENUE={lat:36.36764,lng:127.38069,name:'대전 마리드엘 웨딩홀'}; /* 만년로 69 (실측) */
